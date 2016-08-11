@@ -66,9 +66,13 @@ public class Tab2_alter extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.section2_dummy, container, false);
+
+        //Check session, configure logout user from this screen
+
         map = new HashMap<String, String>();
-        session = new SessionManager(getContext());
+        session = new SessionManager(getActivity());
         map = session.getUserDetails();
+
         credit = (Button)view.findViewById(R.id.creditBtn);
         debit = (Button)view.findViewById(R.id.debitBtn);
         ContractList = new ArrayList<Contract>();
@@ -129,6 +133,10 @@ public class Tab2_alter extends Fragment {
                 getActivity().finish();
                 Intent intent = new Intent(getContext(), TabActivity.class);
                 intent.putExtra("LOGOUTUSER", "logout");
+
+
+
+                
             }
         });
 

@@ -21,7 +21,7 @@ public class SessionManager {
 	Context _context;
 	// Shared pref mode
 
-	
+
 	int PRIVATE_MODE = 0;
 	// Sharedpref file name
 	private static final String PREF_NAME = "Userfile";
@@ -52,12 +52,6 @@ public class SessionManager {
 		editor.putString(KEY_NAME, name);
 		// Storing password
 		editor.putString(KEY_PASS, pass);
-		// Storing password
-		//editor.putString(KEY_ADDRESS, address);
-		//storing notification id
-		//editor.putString(KEY_NOTIFICATION_ID,noti_id);
-		//storing phone
-		//editor.putString(KEY_PHONE, phone);
 		// commit changes
 		editor.commit();
 	}	

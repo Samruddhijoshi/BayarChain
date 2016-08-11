@@ -66,6 +66,7 @@ public class loginPage extends AppCompatActivity {
 		signUpBtn = (Button) findViewById(R.id.signUp);
 		session = new SessionManager(getBaseContext());
 		SharedPreferences sharedPref = this.getPreferences(getBaseContext().MODE_PRIVATE);
+
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		final GCMClientManager pushClientManager = new GCMClientManager(this, "721883998676");
 
@@ -81,7 +82,6 @@ public class loginPage extends AppCompatActivity {
 						//send this registrationId to your server
 						notification_registration_id = registrationId;
 					}
-
 					@Override
 					public void onFailure(String ex) {
 						super.onFailure(ex);
@@ -107,7 +107,7 @@ public class loginPage extends AppCompatActivity {
 																		"%27&password=%27" +password+"%27" +
 																		 "&noti_id=%27"  +notification_registration_id +"%27" ;
 		Log.d("Login page update notifiaction", url);
-// Request a string response from the provided URL.
+	// Request a string response from the provided URL.
 		StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
 				new Response.Listener<String>() {
 					@Override
