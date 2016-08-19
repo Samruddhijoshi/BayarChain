@@ -133,12 +133,6 @@ public class Tab2_alter extends Fragment {
                 getActivity().finish();
                 Intent intent = new Intent(getContext(), TabActivity.class);
                 intent.putExtra("LOGOUTUSER", "logout");
-
-
-
-
-
-                
             }
         });
 
@@ -259,7 +253,7 @@ public class Tab2_alter extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        // This makes sure that the container activity has implemented
+        // This makes sure that the csontainer activity has implemented
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (CloseActivity) activity;
