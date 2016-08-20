@@ -28,9 +28,6 @@ public class TabActivity extends AppCompatActivity implements Tab2_alter.CloseAc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
-        //Create Session Object, Check if the user has logged in
-        session = new SessionManager(this);
-        session.checkLogin();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.

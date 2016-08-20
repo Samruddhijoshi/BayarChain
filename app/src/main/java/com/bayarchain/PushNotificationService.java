@@ -32,6 +32,7 @@ public class PushNotificationService extends GcmListenerService{
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
+        String title = data.getString("title");
         Log.d("Notification Received", message);
         contract_id = message.substring(13, message.length()).trim();
         Log.d("Trimmed Notification", contract_id);

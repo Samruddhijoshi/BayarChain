@@ -11,6 +11,8 @@ import android.content.SharedPreferences.Editor;
 import com.bayarchain.TabActivity;
 import com.bayarchain.loginPage;
 
+import sprint3_ad.ScrollingActivity;
+
 @SuppressLint("CommitPrefEdits")
 public class SessionManager {
 	// Shared Preferences

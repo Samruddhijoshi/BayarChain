@@ -21,41 +21,33 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".TabActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
+        <activity
+            android:name=".CreateContract1"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
+        <activity
             android:name=".loginPage"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize">
-        </activity>
-
-        <activity
-            android:name=".TabActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
         <activity
             android:name=".signUp"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize">
-        </activity>
-
+            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
         <activity
             android:name=".ContractDetails"
             android:parentActivityName=".TabActivity"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -87,6 +79,17 @@
                 <category android:name="com.bayarchain" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="sprint3_ad.ScrollingActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

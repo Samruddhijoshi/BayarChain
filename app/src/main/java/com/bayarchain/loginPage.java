@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ScrollingTabContainerView;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import Push.GCMClientManager;
 import SessionManagement.SessionManager;
+import sprint3_ad.ScrollingActivity;
 
 
 public class loginPage extends AppCompatActivity {
@@ -116,7 +118,7 @@ public class loginPage extends AppCompatActivity {
 						Log.d("Response", response.toString());
 						if(response.toString().trim().equals("record found") && isConnected()){
 							session.createLoginSession(username, password);
-							Intent intent = new Intent(loginPage.this, TabActivity.class);
+							Intent intent = new Intent(loginPage.this, ScrollingActivity.class);
 							startActivity(intent);
 						}
 						else if(!isConnected()){
