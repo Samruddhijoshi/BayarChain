@@ -2,6 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent" >
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorAccent"
+        android:paddingTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/logo_list"
+        android:layout_margin="10dp"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/username1"
@@ -10,13 +30,13 @@
         android:text="Username"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:paddingLeft="10sp"
+        android:textSize="20sp"
+        android:paddingTop="10sp"
+        android:gravity="right"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="20sp"
-        android:paddingTop="10sp" />
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:id="@+id/address1"
@@ -28,21 +48,11 @@
         android:paddingLeft="15sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="12sp"
+        android:textSize="9dp"
         android:gravity="right"
         android:paddingRight="10sp"
-        android:layout_below="@+id/username1" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#f9ee23"
-        android:paddingTop="10dp"
-        android:layout_alignBottom="@+id/address1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/username1"
+        android:layout_toRightOf="@+id/imageView2"
+        android:layout_toEndOf="@+id/imageView2" />
 
 </RelativeLayout>

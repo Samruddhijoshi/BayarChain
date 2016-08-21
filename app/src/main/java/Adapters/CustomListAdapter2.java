@@ -59,7 +59,7 @@ public class CustomListAdapter2 extends BaseAdapter {
             inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.contract_display, null);
+            convertView = inflater.inflate(R.layout.contract_list_display, null);
         Contract object = schoolList.get(position);
 
         TextView Created_with = (TextView) convertView.findViewById(R.id.contractID);

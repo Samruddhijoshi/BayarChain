@@ -157,14 +157,14 @@ public class Tab1 extends Fragment{
 					}
 				});
 				Log.d("Updated Date", date);
-				Button finalize_contract = (Button)book.findViewById(R.id.finalize);
-				finalize_contract.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						CreateContractMethod();
-						book.dismiss();
-					}
-				});
+//				Button finalize_contract = (Button)book.findViewById(R.id.finalize);
+//				finalize_contract.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View view) {
+//						CreateContractMethod();
+//						book.dismiss();
+//					}
+//				});
 				book.show();
 			}
 
