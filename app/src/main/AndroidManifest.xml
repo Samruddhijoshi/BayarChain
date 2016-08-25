@@ -27,7 +27,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
         <activity
-            android:name=".CreateContract1"
+            android:name="usused.CreateContract1"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
