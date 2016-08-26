@@ -22,6 +22,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@android:color/white"
+        android:maxLines="1"
         android:height="40sp"
         android:padding="10sp"
         android:typeface="monospace"
@@ -36,6 +37,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLines="1"
+
         android:gravity="center_horizontal"
         android:hint="Confirm Password"
         android:inputType="textPassword"
@@ -56,6 +59,8 @@
         android:ems="10"
         android:gravity="center_horizontal"
         android:hint="Password"
+        android:maxLines="1"
+
         android:inputType="textPassword"
         android:layout_below="@+id/username1"
         android:layout_alignLeft="@+id/username1"
@@ -72,8 +77,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLines="1"
+
         android:gravity="center_horizontal"
-        android:hint="Last Name"
+        android:hint="Email Address"
         android:inputType="textPersonName"
         android:layout_below="@+id/firstName"
         android:layout_alignLeft="@+id/firstName"
@@ -83,12 +90,13 @@
         android:padding="10sp"
         android:typeface="monospace"
         android:alpha=".6"
-        android:layout_marginBottom="10dp"
-        android:text="Email address" />
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="wrap_content"
+        android:maxLines="1"
+
         android:layout_height="wrap_content"
         android:background="@drawable/oval_background"
         android:minWidth="100dp"
@@ -120,6 +128,8 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
+        android:maxLines="1"
+
         android:id="@+id/editText"
         android:layout_below="@+id/confirmPassword"
         android:layout_alignLeft="@+id/confirmPassword"
@@ -127,7 +137,10 @@
         android:alpha="0.6"
         android:background="@android:color/white"
         android:height="40sp"
-        android:minHeight="40sp" />
+        android:minHeight="40sp"
+        android:hint="Contact Number"
+        android:phoneNumber="true"
+        android:gravity="center_vertical|center_horizontal" />
 
 </RelativeLayout>
 </ScrollView>

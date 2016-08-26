@@ -27,10 +27,10 @@
         android:text="Amount owed"
         android:id="@+id/textView7"
         android:gravity="center"
-        android:layout_below="@+id/amt"
+        android:layout_alignBaseline="@+id/amt"
+        android:layout_alignBottom="@+id/amt"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="24dp" />
+        android:layout_alignStart="@+id/textView2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,9 +39,12 @@
         android:text="Medium Text"
         android:id="@+id/amt"
         android:gravity="center"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignLeft="@+id/rname"
-        android:layout_alignStart="@+id/rname" />
+        android:layout_below="@+id/ename"
+        android:layout_alignLeft="@+id/ename"
+        android:layout_alignStart="@+id/ename"
+        android:layout_marginTop="40dp"
+        android:layout_alignRight="@+id/ename"
+        android:layout_alignEnd="@+id/ename" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,23 +53,11 @@
         android:text="Medium Text"
         android:id="@+id/ename"
         android:gravity="center"
-        android:layout_alignBottom="@+id/status"
-        android:layout_marginRight="10dp"
-        android:layout_alignLeft="@+id/textView17"
-        android:layout_alignStart="@+id/textView17" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView17"
-        android:gravity="center"
-        android:hint="e.g. Dinner"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_marginRight="10dp"
-        android:layout_alignLeft="@+id/amt"
-        android:layout_alignStart="@+id/amt" />
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/status"
+        android:layout_toEndOf="@+id/status" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,10 +66,11 @@
         android:text="Status"
         android:id="@+id/status"
         android:gravity="center"
+        android:layout_marginTop="31dp"
         android:layout_below="@+id/textView7"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7"
-        android:layout_marginTop="21dp" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="italic"
+        android:textSize="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,10 +79,9 @@
         android:text="Owed To"
         android:id="@+id/textView5"
         android:gravity="center"
-        android:layout_marginTop="23dp"
         android:layout_below="@+id/status"
-        android:layout_alignLeft="@+id/status"
-        android:layout_alignStart="@+id/status" />
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,9 +105,8 @@
         android:layout_alignTop="@+id/textView5"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginLeft="10dp" />
+        android:layout_toRightOf="@+id/status"
+        android:layout_toEndOf="@+id/status" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -125,42 +115,43 @@
         android:text="Medium Text"
         android:id="@+id/date"
         android:gravity="center"
-        android:layout_above="@+id/inputamount"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignRight="@+id/rname"
+        android:layout_alignEnd="@+id/rname"
         android:layout_alignLeft="@+id/rname"
         android:layout_alignStart="@+id/rname" />
 
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/inputamount"
-        android:layout_below="@+id/textView6"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6"
-        android:layout_marginTop="77dp"
-        android:layout_alignRight="@+id/rname"
-        android:layout_alignEnd="@+id/rname"
-        android:hint="Amount you want to Pay"
-        android:gravity="center_horizontal" />
+        android:hint="You can pay in installments"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/textView19"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/dollar"
+        android:textSize="15dp" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:weightSum="2"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/textView6"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/linearLayout2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
 
         <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
             android:id="@+id/imageButton2"
             android:scaleType="fitCenter"
             android:adjustViewBounds="false"
@@ -172,8 +163,8 @@
             android:layout_marginRight="10dp" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
             android:id="@+id/imageButton"
             android:scaleType="fitCenter"
             android:cropToPadding="false"
@@ -194,8 +185,28 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="How do you wish to settle?"
         android:id="@+id/textView13"
-        android:layout_above="@+id/linearLayout2"
+        android:textColor="@android:color/black"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textView19"
+        android:layout_below="@+id/linearLayout2"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:textColor="@android:color/black" />
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pay"
+        android:id="@+id/paybuttonfinal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_alignRight="@+id/inputamount"
+        android:layout_alignEnd="@+id/inputamount"
+        android:layout_alignLeft="@+id/inputamount"
+        android:layout_alignStart="@+id/inputamount" />
 </RelativeLayout>

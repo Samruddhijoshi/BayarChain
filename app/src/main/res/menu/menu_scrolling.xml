@@ -10,6 +10,6 @@
     <item
         android:id="@+id/action_manage"
         android:orderInCategory="100"
-        android:title="Manage details"
+        android:title="Xfers"
         app:showAsAction="never" />
 </menu>

@@ -11,6 +11,7 @@ public class Contract implements Comparable<Contract>{
     String contract_amount;
     String contract_address;
     String contract_timestamp;
+    String contract_principal;
 
     public String getContract_event() {
         return contract_event;
@@ -21,6 +22,14 @@ public class Contract implements Comparable<Contract>{
     }
 
     String contract_event;
+
+    public String getContract_principal() {
+        return contract_principal;
+    }
+
+    public void setContract_principal(String contract_principal) {
+        this.contract_principal = contract_principal;
+    }
 
     public String getContract_timestamp() {
         return contract_timestamp;

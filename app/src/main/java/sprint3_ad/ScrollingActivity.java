@@ -3,6 +3,7 @@ package sprint3_ad;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.andexert.library.RippleView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,11 +44,37 @@ import Adapters.CustomListAdapter2;
 import Model.Contract;
 import SessionManagement.SessionManager;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class ScrollingActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button credit,debit;
-    private RippleView credit1, debit1;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cust_adap = new CustomListAdapter2(ScrollingActivity.this , ContractList, "debit");
+        ContractList.clear();
+        CallThread2("debit");
+        listView.setAdapter(cust_adap);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ScrollingActivity.this, ContractDetails.class);
+                Contract con = new Contract();
+                con = ContractList.get(position);
+                intent.putExtra("TAB2_EVENTNAME", con.getContract_event());
+                intent.putExtra("TAB2_AMOUNT", con.getContract_amount());
+                intent.putExtra("TAB2_DATE", con.getContract_timestamp());
+                intent.putExtra("TAB2_OWNER", con.getCreator_username());
+                intent.putExtra("TAB2_STATUS", con.getContract_status());
+                intent.putExtra("TAB2_CONTRACT_ADD", con.getContract_address());
+                startActivity(intent);
+            }
+        });
+    }
+
     private ListView listView;
+    TextView fullname_appbar, username_appbar;
     CustomListAdapter2 cust_adap;
     ArrayList<Contract> ContractList;
     ProgressDialog pDialog;
@@ -65,13 +93,17 @@ public class ScrollingActivity extends AppCompatActivity {
 
         credit = (Button)findViewById(R.id.credit);
         debit = (Button)findViewById(R.id.debit);
-        credit1 = (RippleView) findViewById(R.id.more);
-        debit1 = (RippleView) findViewById(R.id.more1);
+        //credit1 = (RippleView) findViewById(R.id.more);
+        //debit1 = (RippleView) findViewById(R.id.more1);
         listView = (ListView)findViewById(R.id.listView);
         ContractList = new ArrayList<Contract>();
+        fullname_appbar = (TextView)findViewById(R.id.fullName_activityscrolling);
+        username_appbar = (TextView)findViewById(R.id.username_activityscrolling);
 
         session = new SessionManager(this);
         session.checkLogin();
+        fullname_appbar.setText(session.getUserDetails().get("name").toUpperCase());
+        username_appbar.setText(session.getUserDetails().get("name"));
         map = new HashMap<String, String>();
         session = new SessionManager(this);
         map = session.getUserDetails();
@@ -83,7 +115,7 @@ public class ScrollingActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         cust_adap = new CustomListAdapter2(this , ContractList, "credit");
 
-        credit1.setOnClickListener(new View.OnClickListener() {
+        credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cust_adap = new CustomListAdapter2(ScrollingActivity.this , ContractList, "credit");
@@ -92,31 +124,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 listView.setAdapter(cust_adap);
             }
         });
-        debit1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cust_adap = new CustomListAdapter2(ScrollingActivity.this , ContractList, "debit");
-                ContractList.clear();
-                CallThread2("debit");
-                listView.setAdapter(cust_adap);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(ScrollingActivity.this, ContractDetails.class);
-                        Contract con = new Contract();
-                        con = ContractList.get(position);
-                        intent.putExtra("TAB2_EVENTNAME", con.getContract_event());
-                        intent.putExtra("TAB2_AMOUNT", con.getContract_amount());
-                        intent.putExtra("TAB2_DATE", con.getContract_timestamp());
-                        intent.putExtra("TAB2_OWNER", con.getCreator_username());
-                        intent.putExtra("TAB2_STATUS", con.getContract_status());
-                        intent.putExtra("TAB2_CONTRACT_ADD", con.getContract_address());
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
+        debit.setOnClickListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -140,11 +148,18 @@ public class ScrollingActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         // Showing progsress dialog before making http request
         pDialog.setMessage("Loading Credit List, Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel Loading", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         pDialog.show();
         RequestQueue queue = Volley.newRequestQueue(this);
 
         String url ="";
-        url = "http://bayarchain.southeastasia.cloudapp.azure.com/test8sprint.php?control=myContract&genname="
+        url = "http://bayarchain.southeastasia.cloudapp.azure.com/sam1.php?control=myContract&genname="
                 + map.get(SessionManager.KEY_NAME)
                 +"&password=" + map.get(SessionManager.KEY_PASS);
         Log.d("Credit link", url);
@@ -157,6 +172,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject obj = response.getJSONObject(i);
+
                         Contract contract = new Contract();
                         contract.setContract_address(obj.getString("contractID"));
                         contract.setContract_amount(obj.getString("amount"));
@@ -164,6 +180,8 @@ public class ScrollingActivity extends AppCompatActivity {
                         contract.setContract_status(obj.getString("status"));
                         contract.setContract_timestamp(obj.getString("timestamp"));
                         contract.setContract_event(obj.getString("event"));
+                        contract.setContract_principal(obj.getString("total"));
+
                         ContractList.add(contract);
 
                     } catch (JSONException e) {
@@ -186,11 +204,19 @@ public class ScrollingActivity extends AppCompatActivity {
     }
     public void CallThread2(final String check){
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Loading Debit List, Please wait...");
+        pDialog.setMessage("Loading Debit List, Please wait..");
+        pDialog.setCancelable(false);
+        pDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel Loading", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         pDialog.show();
+
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="";
-        url = "http://bayarchain.southeastasia.cloudapp.azure.com/test8sprint.php?control=allContract" +
+        url = "http://bayarchain.southeastasia.cloudapp.azure.com/sam1.php?control=allContract" +
                 "&genname="    + map.get(SessionManager.KEY_NAME) +
                 "&password=" + map.get(SessionManager.KEY_PASS);
         Log.d("Credit link", url);
@@ -212,6 +238,8 @@ public class ScrollingActivity extends AppCompatActivity {
                         contract.setContract_status(obj.getString("status"));
                         contract.setContract_timestamp(obj.getString("timestamp"));
                         contract.setContract_event(obj.getString("event"));
+                        contract.setContract_principal(obj.getString("total"));
+
                         ContractList.add(contract);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -258,11 +286,40 @@ public class ScrollingActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        session = new SessionManager(this);
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {//this is the logout button
+            this.session.logoutUser();
             return true;
         }
+        else if(id == R.id.action_manage){//this is manage profile activity
+            Toast.makeText(ScrollingActivity.this, "Currently not available", Toast.LENGTH_SHORT).show();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        cust_adap = new CustomListAdapter2(ScrollingActivity.this , ContractList, "debit");
+        ContractList.clear();
+        CallThread2("debit");
+        listView.setAdapter(cust_adap);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ScrollingActivity.this, ContractDetails.class);
+                Contract con = new Contract();
+                con = ContractList.get(position);
+                intent.putExtra("TAB2_EVENTNAME", con.getContract_event());
+                intent.putExtra("TAB2_AMOUNT", con.getContract_amount());
+                intent.putExtra("TAB2_DATE", con.getContract_timestamp());
+                intent.putExtra("TAB2_OWNER", con.getCreator_username());
+                intent.putExtra("TAB2_STATUS", con.getContract_status());
+                intent.putExtra("TAB2_CONTRACT_ADD", con.getContract_address());
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -21,10 +21,8 @@ import com.google.android.gms.gcm.GcmListenerService;
 import java.util.HashMap;
 
 import SessionManagement.SessionManager;
+import sprint3_ad.ScrollingActivity;
 
-/**
- * Created by kundan on 10/22/2015.
- */
 public class PushNotificationService extends GcmListenerService{
 
     String contract_id;
@@ -32,26 +30,26 @@ public class PushNotificationService extends GcmListenerService{
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
-        String title = data.getString("title");
         Log.d("Notification Received", message);
+
         contract_id = message.substring(13, message.length()).trim();
         Log.d("Trimmed Notification", contract_id);
         //createNotification(mTitle, push_msg);
         int requestID = (int) System.currentTimeMillis();
         Notify(contract_id);
-        Intent notificationIntent = new Intent(getApplicationContext(), TabActivity.class);
+        Intent notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
         notificationIntent.putExtra("KEY_CONTRACT_ID", contract_id);
         notificationIntent.setAction("ACTION_1");
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                        .setContentTitle("Bayar Chain")
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setAutoCancel(true)
-                        .setContentText(message)
-                        .setDefaults(Notification.DEFAULT_ALL)
-                        .setContentIntent(contentIntent);
+                .setContentTitle("Bayar Chain")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
+                .setContentText(message)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentIntent(contentIntent);
         //mBuilder.addAction(R.drawable.ic_action_add, "click", contentIntent);
         int mNotificationId = 001;
         // Gets an instance of the NotificationManager service
@@ -73,7 +71,7 @@ public class PushNotificationService extends GcmListenerService{
             Log.d("Hello", map.get(SessionManager.KEY_NAME));
             Log.d("Hello", map.get(SessionManager.KEY_PASS));
 
-            String url = "http://bayarchain.southeastasia.cloudapp.azure.com/test8sprint.php?" +
+            String url = "http://bayarchain.southeastasia.cloudapp.azure.com/sam1.php?" +
                     "control=notify" +
                     "&id=" + contract_id +
                     "&genname=" + map.get(SessionManager.KEY_NAME) +

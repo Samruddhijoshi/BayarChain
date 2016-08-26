@@ -67,8 +67,12 @@ public class CustomListAdapter2 extends BaseAdapter {
         TextView contract_amount = (TextView) convertView.findViewById(R.id.amount);
         TextView amount_label = (TextView)convertView.findViewById(R.id.text17);//DONOT ToUCH OnlY FOR UI
         TextView createTitle = (TextView)convertView.findViewById(R.id.textView15);
+        TextView principal_amount = (TextView)convertView.findViewById(R.id.principal_amt);
+
+
         Created_with.setText(object.getCreator_username());
         event.setText("Event Name: " + object.getContract_event());
+        principal_amount.setText("Principal Amount: " + object.getContract_principal() );
 
 
         if(object.getContract_status().toString().trim().equals("1")){
@@ -79,7 +83,6 @@ public class CustomListAdapter2 extends BaseAdapter {
 
         if(tab.equals("credit")){
             createTitle.setText("You will get from..");
-
             contract_amount.setTextColor(Color.parseColor("#1b5e20"));
             amount_label.setTextColor(Color.parseColor("#4caf50"));
         }

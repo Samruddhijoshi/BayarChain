@@ -58,12 +58,12 @@
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
         <activity
             android:name=".ContractDetails"
-            android:parentActivityName=".TabActivity"
+            android:parentActivityName="sprint3_ad.ScrollingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bayarchain.TabActivity" />
+                android:value="com.bayarchain.ContractDetails" />
         </activity>
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -98,7 +98,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

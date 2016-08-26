@@ -5,6 +5,7 @@ import android.app.Dialog;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -67,6 +68,8 @@ public class CreateContractDummy extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_contract);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         expense_name = (EditText)findViewById(R.id.editText3);
         amount = (EditText)findViewById(R.id.editText4);
         date_selector = (Button)findViewById(R.id.button3);
@@ -223,20 +226,20 @@ public class CreateContractDummy extends ActionBarActivity {
         pDialog.show();
         RequestQueue queue2 = Volley.newRequestQueue(CreateContractDummy.this);
 
-        String url2 = "http://bayarchain.southeastasia.cloudapp.azure.com/test8sprint.php?" +
+        String url2 = "http://23.97.60.51/sam1.php?" +
                 "control=create"+
                 "&genname=" 	+ hash.get(SessionManager.KEY_NAME) +
                 "&password=" 	+ hash.get(SessionManager.KEY_PASS) +
-                "&recname=" 	+ receiver_username.trim().toString() +
-                "&amount=" 		+ amount.toString().substring(1, amount.toString().length()).trim() +
+                "&recname=" 	+ friend_list.get(0).getUsername() +
+                "&amount=" 		+ amount.toString().substring(0, amount.toString().length()).trim() +
                 "&timestamp=" 	+ final_date +
                 "&eventName="   + ev_name;
 
         Log.d(TAG, url2);
         if (!amount.equals(null) && !event_Name.equals(null) && !receiver_name.equals(null) && !receiver_address.equals(null) && !receiver_notification_id.equals(null)) {
-            StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
+                    StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
 
-                public void onResponse(String response) {
+                        public void onResponse(String response) {
 
                     Log.d(TAG, response.toString().trim());
                     hidePDialog();
@@ -244,7 +247,7 @@ public class CreateContractDummy extends ActionBarActivity {
                     received_contract_address = response.toString().trim();
                     Send_Notification(received_contract_address);
                     Toast.makeText(CreateContractDummy.this, "Contract Created, your friend has been notified", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, received_contract_address);
+                    Log.d("Response of create contract", received_contract_address);
                     CreateContractDummy.this.finish();}
                     else{
                         Toast.makeText(CreateContractDummy.this , "There was an error adding this contract, Please try again later", Toast.LENGTH_LONG).show();
