@@ -20,7 +20,7 @@ public class Content implements Serializable {
     public void createData(String title, String message){
         if(data == null)
             data = new HashMap<String,String>();
-        data.put("message", title);
-        data.put("message", message);
+        data.put("title", title); //title shall be the code number to distinguish the type of notification
+        data.put("message", message); // message will be the content of the notification
     }
 }

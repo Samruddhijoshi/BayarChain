@@ -52,6 +52,7 @@ public class ContractDetails extends AppCompatActivity {
     ProgressDialog pDialog;
     Button pay_final;
     String  notif_id ;
+    private final String NOTIFICATION_TYPE = "PAYMENT";
 
 
     TextView  name, eventname, date, amt, status, payment_method;
@@ -156,7 +157,13 @@ public class ContractDetails extends AppCompatActivity {
         //get notification id of other user.
         Content c = new Content();
         c.addRegId(str);
-        c.createData("message", str1.toUpperCase() + "has settled the payment of "+Inputamount.getText().toString().trim() + " for " + str4.toUpperCase() + ". Please tap on this balloon to confirm! " );
+        c.createData(NOTIFICATION_TYPE, str4.toUpperCase()
+                + " has settled the payment of "
+                + Inputamount.getText().toString().trim()
+                + " for " + str1.toUpperCase()
+                + " by "
+                + payment_method.getText().toString()
+                + ". Please tap on this balloon to confirm! " );
         return c;
     }
 

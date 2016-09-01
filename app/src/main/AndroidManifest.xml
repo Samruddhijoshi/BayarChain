@@ -26,12 +26,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
-        <activity
-            android:name="usused.CreateContract1"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
+
 
         <activity
             android:name=".CreateContractDummy"
@@ -39,23 +34,25 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
-        <meta-data
+                <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="sprint3_ad.ScrollingActivity" />
         </activity>
 
         <activity
-            android:name=".loginPage"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
-        <activity
             android:name=".signUp"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
+            android:windowSoftInputMode="adjustPan|adjustResize">
+        </activity>
+        <activity
+            android:name=".loginPage"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|adjustResize">
+        </activity>
         <activity
             android:name=".ContractDetails"
             android:parentActivityName="sprint3_ad.ScrollingActivity"
@@ -65,6 +62,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bayarchain.ContractDetails" />
         </activity>
+
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -87,7 +85,6 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
                 <category android:name="com.bayarchain" />
             </intent-filter>
         </receiver>

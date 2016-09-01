@@ -102,13 +102,17 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
 
         session = new SessionManager(this);
         session.checkLogin();
-        fullname_appbar.setText(session.getUserDetails().get("name").toUpperCase());
-        username_appbar.setText(session.getUserDetails().get("name"));
+
         map = new HashMap<String, String>();
         session = new SessionManager(this);
         map = session.getUserDetails();
         if(!session.isLoggedIn()){
             this.finish();
+        }
+        else
+        {
+            fullname_appbar.setText(session.getUserDetails().get("name").toUpperCase());
+            username_appbar.setText(session.getUserDetails().get("name"));
         }
         //HelpScreens();
         adapter = new ArrayAdapter<String>(ScrollingActivity.this, android.R.layout.simple_list_item_1, products);

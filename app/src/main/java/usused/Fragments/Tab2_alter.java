@@ -1,4 +1,4 @@
-package Fragments;
+package usused.Fragments;
 
 
 import android.animation.ObjectAnimator;
@@ -29,7 +29,6 @@ import com.android.volley.toolbox.Volley;
 import com.bayarchain.ContractDetails;
 import com.bayarchain.R;
 import com.bayarchain.TabActivity;
-import com.bayarchain.loginPage;
 
 import org.json.JSONArray;
 import org.json.JSONException;

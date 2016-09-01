@@ -11,8 +11,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import Fragments.Tab1;
-import Fragments.Tab2_alter;
+import usused.Fragments.Tab1;
+import usused.Fragments.Tab2_alter;
 import SessionManagement.SessionManager;
 
 

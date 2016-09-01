@@ -61,6 +61,7 @@ public class CreateContractDummy extends ActionBarActivity {
     ProgressDialog pDialog;
     String final_date;
     public static final String TAG = "TAG" ;
+    public static final String NOTIFICATION_TYPE = "CONTRACT";
     String not_id, str1, str2,str_name;
     private ArrayList<ID> friend_list;
 
@@ -272,14 +273,14 @@ public class CreateContractDummy extends ActionBarActivity {
     public void Send_Notification(String str){
         String apiKey = "AIzaSyCHslDzvLhkgY_k-J5C_us2T7YHhMgJabw";
         Content content = createContent(str);
-        Log.d(TAG, "inside method send notification");
+        Log.d(TAG, "CreateContractDummy Inside method send notification");
         POST2GCM.post(apiKey, content);
     }
     public  Content createContent(String str){
 
         Content c = new Content();
         c.addRegId(not_id);
-        c.createData("message", "Contract ID: "+ str);
+        c.createData(NOTIFICATION_TYPE, "Contract ID: "+ str + " generated for the expense "+  expense_name.getText().toString().trim()+ " of amount "+ amount.getText().toString().trim() + " .Please Tap this balloon to confirm this contract" );
         Log.d(TAG, "App.java" + c.data);
         return c;
     }

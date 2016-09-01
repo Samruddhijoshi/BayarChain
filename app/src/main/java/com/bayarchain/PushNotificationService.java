@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -29,36 +30,52 @@ public class PushNotificationService extends GcmListenerService{
     RequestQueue queue;
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        String message = data.getString("message");
-        Log.d("Notification Received", message);
-
-        contract_id = message.substring(13, message.length()).trim();
-        Log.d("Trimmed Notification", contract_id);
-        //createNotification(mTitle, push_msg);
-        int requestID = (int) System.currentTimeMillis();
-        Notify(contract_id);
         Intent notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
-        notificationIntent.putExtra("KEY_CONTRACT_ID", contract_id);
-        notificationIntent.setAction("ACTION_1");
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        NotificationCompat.Builder mBuilder;
+        NotificationManager mNotifyMgr;
+        int requestID = (int) System.currentTimeMillis();
+        PendingIntent contentIntent =  PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int mNotificationId = 000;
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("Bayar Chain")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setAutoCancel(true)
-                .setContentText(message)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setContentIntent(contentIntent);
-        //mBuilder.addAction(R.drawable.ic_action_add, "click", contentIntent);
-        int mNotificationId = 001;
-        // Gets an instance of the NotificationManager service
-        NotificationManager mNotifyMgr =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // Builds the notification and issues it.
-        mNotifyMgr.notify(mNotificationId++, mBuilder.build());
-        //Notify();
-    }
+
+        String message = data.getString("message");
+        String title = data.getString("title");
+        Log.d("Notification Received", title +"   "+ message);
+
+        if(title.equals("CONTRACT")) {
+            contract_id = message.substring(13, 53).trim();
+            Log.d("Trimmed Notification", contract_id);
+            Notify(contract_id);
+            notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
+            notificationIntent.putExtra("KEY_CONTRACT_ID", contract_id);
+            notificationIntent.setAction("ACTION_1");
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+        else if(title.trim().equals("PAYMENT")) {
+            Log.d("Trimmed Notification", "Hello");
+            notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
+            notificationIntent.putExtra("KEY_CONTRACT_ID", "Hello");
+            notificationIntent.setAction("ACTION_1");
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+        mBuilder = new NotificationCompat.Builder(this)
+                    .setContentTitle("Bayar Chain")
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo_list))
+                    .setAutoCancel(true)
+                    .setSmallIcon(R.drawable.logo_list)
+                    .setContentText(message)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setContentIntent(contentIntent)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                    .addAction(R.drawable.abc_btn_check_to_on_mtrl_015, "APPROVE", contentIntent)
+                    .addAction(R.drawable.abc_ic_clear_mtrl_alpha, "REJECT", contentIntent);
+            mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            mNotifyMgr.notify(mNotificationId++, mBuilder.build());
+        }
+
+
 
     private void Notify(String contract_id) {
         queue = Volley.newRequestQueue(this);
