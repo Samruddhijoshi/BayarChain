@@ -7,11 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
-import com.bayarchain.TabActivity;
 import com.bayarchain.loginPage;
-
-import sprint3_ad.ScrollingActivity;
 
 @SuppressLint("CommitPrefEdits")
 public class SessionManager {
@@ -33,10 +31,17 @@ public class SessionManager {
 	public static final String KEY_NAME = "name";
 	// password (make variable public to access from outside)
 	public static final String KEY_PASS = "pass";
-	// storing private key address in address
-	public static final String KEY_ADDRESS = "address";
 	// in future store phone number of the user
+	public static final String KEY_CONTACT = "address";
+	//store the email address of the user
+	public static final String KEY_EMAIL = "email";
+	//store the XFERS API KEY OF THE USER
+	public static final String KEY_API_XFER = "xferkey";
+	//store the notification id of user's android device
 	public static final String KEY_NOTIFICATION_ID = "noti_id";
+	// on recieve intent codes for notifications of payment confirmation
+	public static final String KEY_PAYMENT_RECIEIVED = "payment_rec";
+
 
 	// Constructor
 	public SessionManager(Context context){
@@ -57,7 +62,14 @@ public class SessionManager {
 		// commit changes
 		editor.commit();
 	}	
-	
+	public void storeMessage(String message){
+		editor.putString(KEY_PAYMENT_RECIEIVED, message);
+		Log.d("PAYMENT_NOTI_SHARED_PREF", message);
+		editor.commit();
+	}
+	public String returnStoredMessage(){
+		return pref.getString(KEY_PAYMENT_RECIEIVED, null);
+	}
 	/**
 	 * Check login method wil check user login status
 	 * If false it will redirect user to login page
@@ -86,12 +98,14 @@ public class SessionManager {
 		user.put(KEY_NAME, pref.getString(KEY_NAME, null));
 		// user password
 		user.put(KEY_PASS, pref.getString(KEY_PASS, null));
-		//return address
-		user.put(KEY_ADDRESS, pref.getString(KEY_ADDRESS, null));
 		//return notification id
-		user.put(KEY_ADDRESS, pref.getString(KEY_NOTIFICATION_ID, null));
+		user.put(KEY_NOTIFICATION_ID, pref.getString(KEY_NOTIFICATION_ID, null));
+		//return email address
+		user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 		//return phone
-		//user.put(KEY_PHONE, pref.getString(KEY_PHONE, null));
+		user.put(KEY_CONTACT, pref.getString(KEY_CONTACT, null));
+		//return xfer api key of the user
+		user.put(KEY_API_XFER, pref.getString(KEY_API_XFER, null));
 
 		return user;
 	}

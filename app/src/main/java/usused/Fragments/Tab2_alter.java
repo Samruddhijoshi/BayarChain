@@ -28,7 +28,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bayarchain.ContractDetails;
 import com.bayarchain.R;
-import com.bayarchain.TabActivity;
+import usused.TabActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

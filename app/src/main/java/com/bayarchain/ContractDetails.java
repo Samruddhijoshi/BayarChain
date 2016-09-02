@@ -56,7 +56,7 @@ public class ContractDetails extends AppCompatActivity {
 
 
     TextView  name, eventname, date, amt, status, payment_method;
-    Button settle,settle_cash;
+    Button settle, settle_cash;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +65,7 @@ public class ContractDetails extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -162,8 +163,8 @@ public class ContractDetails extends AppCompatActivity {
                 + Inputamount.getText().toString().trim()
                 + " for " + str1.toUpperCase()
                 + " by "
-                + payment_method.getText().toString()
-                + ". Please tap on this balloon to confirm! " );
+                + payment_method.getText().toString().substring(16, payment_method.getText().toString().length())
+                + ". Please tap on this balloon to open! " );
         return c;
     }
 

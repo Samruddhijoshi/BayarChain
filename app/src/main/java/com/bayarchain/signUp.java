@@ -29,7 +29,7 @@ import Push.GCMClientManager;
 
 public class signUp extends Activity {
 
-	EditText Firstname, lastName, password, confirmPassword, username;
+	EditText Firstname, lastName, password, confirmPassword, username, email, contact;
 	Button loginBtn, signUpBtn;
 	String uname, pass, reg_id, fullname;
 
@@ -42,10 +42,11 @@ public class signUp extends Activity {
 
 		StrictMode.setThreadPolicy(policy);
 		Firstname = (EditText) findViewById(R.id.firstName);
-		lastName = (EditText) findViewById(R.id.lastName);
+		email = (EditText) findViewById(R.id.emailaddress);
 		password = (EditText) findViewById(R.id.password);
 		confirmPassword = (EditText) findViewById(R.id.confirmPassword);
 		username = (EditText) findViewById(R.id.username1);
+		contact = (EditText)findViewById(R.id.contact);
 		final GCMClientManager pushClientManager = new GCMClientManager(this, "721883998676");
 
 		pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
@@ -67,18 +68,12 @@ public class signUp extends Activity {
 
 		signUpBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-
-
 				String password1 = password.getText().toString().trim();
 				String confirmPassword1 = confirmPassword.getText().toString().trim();
 
-
-				//Log.d("password", password1);
-				//Log.d("confirmPassword", confirmPassword1);
-				//Log.d("notification registration id", reg_id);
 				if (confirmPassword1.equals(password1)) {
 					Log.d("Sign_Up", "Password Match");
-					CallThread();
+					CallThread(Firstname.getText().toString(), email.getText().toString(), contact.getText().toString());
 					finish();
 				} else {
 					Log.d("Sign_Up", "Password do not Match");
@@ -88,7 +83,7 @@ public class signUp extends Activity {
 		});
 
 	}
-	protected void CallThread() {
+	protected void CallThread(String a,String s, String t) {
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
@@ -96,12 +91,16 @@ public class signUp extends Activity {
 						new DefaultHttpClient();
 				HttpPost httpPost = new HttpPost("http://23.97.60.51/bayar_mysql/enter_user_details.php");
 				//Post Data
-				Log.d("DATA INSIDE THREAD", reg_id+ Firstname.getText().toString());
-				List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(4);
+				Log.d("DATA INSIDE THREAD", reg_id + Firstname.getText().toString() + email.getText().toString());
+
+				List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(6);
+
 				nameValuePair.add(new BasicNameValuePair("name", Firstname.getText().toString()));
 				nameValuePair.add(new BasicNameValuePair("username",username.getText().toString()));
 				nameValuePair.add(new BasicNameValuePair("password", password.getText().toString()));
 				nameValuePair.add(new BasicNameValuePair("noti_id", reg_id.toString()));
+				nameValuePair.add(new BasicNameValuePair("email",email.getText().toString()));
+				nameValuePair.add(new BasicNameValuePair("phone", contact.getText().toString()));
 				try {
 					httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
 					try {

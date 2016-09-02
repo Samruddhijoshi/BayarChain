@@ -7,7 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ScrollingTabContainerView;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,6 +27,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import Push.GCMClientManager;
 import SessionManagement.SessionManager;
 import sprint3_ad.ScrollingActivity;
+import usused.TabActivity;
 
 
 public class loginPage extends AppCompatActivity {

@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -22,6 +23,7 @@ import com.google.android.gms.gcm.GcmListenerService;
 import java.util.HashMap;
 
 import SessionManagement.SessionManager;
+import sprint3_ad.PaymentReceived;
 import sprint3_ad.ScrollingActivity;
 
 public class PushNotificationService extends GcmListenerService{
@@ -36,7 +38,7 @@ public class PushNotificationService extends GcmListenerService{
         int requestID = (int) System.currentTimeMillis();
         PendingIntent contentIntent =  PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         int mNotificationId = 000;
-
+        SessionManager session = new SessionManager(this);
 
         String message = data.getString("message");
         String title = data.getString("title");
@@ -48,16 +50,16 @@ public class PushNotificationService extends GcmListenerService{
             Notify(contract_id);
             notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
             notificationIntent.putExtra("KEY_CONTRACT_ID", contract_id);
-            notificationIntent.setAction("ACTION_1");
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         else if(title.trim().equals("PAYMENT")) {
             Log.d("Trimmed Notification", "Hello");
-            notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
-            notificationIntent.putExtra("KEY_CONTRACT_ID", "Hello");
-            notificationIntent.setAction("ACTION_1");
-            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            notificationIntent = new Intent(getApplicationContext(), PaymentReceived.class);
+            notificationIntent.putExtra("KEY_PAYMENT", message);
+            Log.d("PAYMENT_NOTI", message);
+            session.storeMessage(message);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         mBuilder = new NotificationCompat.Builder(this)
@@ -68,21 +70,18 @@ public class PushNotificationService extends GcmListenerService{
                     .setContentText(message)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setContentIntent(contentIntent)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                    .addAction(R.drawable.abc_btn_check_to_on_mtrl_015, "APPROVE", contentIntent)
-                    .addAction(R.drawable.abc_ic_clear_mtrl_alpha, "REJECT", contentIntent);
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message));
+                    //.addAction(R.drawable.abc_btn_check_to_on_mtrl_015, "APPROVE", contentIntent)
+                    //.addAction(R.drawable.abc_ic_clear_mtrl_alpha     , "REJECT" , contentIntent);
             mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             mNotifyMgr.notify(mNotificationId++, mBuilder.build());
         }
-
 
 
     private void Notify(String contract_id) {
         queue = Volley.newRequestQueue(this);
         SessionManager session = new SessionManager(this);
         HashMap<String, String> map = session.getUserDetails();
-        //Intent intent = getActivity().getIntent();
-        //contract_id = intent.getStringExtra("KEY_CONTRACT_ID");
         if (contract_id.length() == 40) {
             Log.d("Hello", contract_id);
             Log.d("Hello", map.get(SessionManager.KEY_NAME));
@@ -118,7 +117,4 @@ public class PushNotificationService extends GcmListenerService{
             //Log.d(TAG + "asdas", received_contract_address);
         }
     }
-
-
-
 }

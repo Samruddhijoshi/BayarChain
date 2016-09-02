@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="sprint3_ad.Xfers">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Fullname"
+        android:id="@+id/textView17"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/xfer_full_name"
+        android:background="#cfd7d7d7"
+        android:layout_below="@+id/textView17"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:editable="true"
+        android:elegantTextHeight="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Contact Number on Xfers"
+        android:id="@+id/asdasdsada"
+        android:layout_below="@+id/xfer_full_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/editText7"
+        android:background="#ccd3d3d3"
+        android:layout_below="@+id/asdasdsada"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:editable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Email ID on Xfers"
+        android:id="@+id/textView21"
+        android:layout_below="@+id/editText7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/email_xfer"
+        android:background="#cbdbdbdb"
+        android:layout_below="@+id/textView21"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:editable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="API Key of Xfer Account"
+        android:id="@+id/textView22"
+        android:layout_below="@+id/email_xfer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/xfer_api"
+        android:layout_below="@+id/textView22"
+        android:layout_alignRight="@+id/email_xfer"
+        android:layout_alignEnd="@+id/email_xfer"
+        android:layout_alignLeft="@+id/asdasdsada"
+        android:layout_alignStart="@+id/asdasdsada"
+        android:background="#ccd3d3d3"
+        android:gravity="center" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:id="@+id/imageView4"
+        android:src="@drawable/xfers_png"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:layout_alignTop="@+id/xfer_api"
+        android:layout_toRightOf="@+id/xfer_api"
+        android:layout_toEndOf="@+id/xfer_api" />
+
+</RelativeLayout>

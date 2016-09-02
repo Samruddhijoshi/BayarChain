@@ -1,4 +1,4 @@
-package com.bayarchain;
+package usused;
 
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.bayarchain.R;
 
 import usused.Fragments.Tab1;
 import usused.Fragments.Tab2_alter;

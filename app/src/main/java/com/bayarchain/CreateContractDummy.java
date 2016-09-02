@@ -1,9 +1,11 @@
 package com.bayarchain;
 
+import android.app.Activity;
 import android.app.Dialog;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -49,7 +51,7 @@ import SessionManagement.SessionManager;
 public class CreateContractDummy extends ActionBarActivity {
     private EditText expense_name;
     private EditText amount;
-    private Button date_selector, add_friend, create_contract_button;
+    private Button date_selector, add_friend, create_contract_button, scan_button;
     private ListView friend_listview;
     private String[] products = {"Aditya","Gunj", "Manish"};
     public ArrayList<ID> IDList;
@@ -82,6 +84,8 @@ public class CreateContractDummy extends ActionBarActivity {
         IDList = new ArrayList<ID>();
         friend_list = new ArrayList<ID>();
         friend_adap = new CustomListAdapter(CreateContractDummy.this, friend_list);
+        scan_button = (Button)findViewById(R.id.scan_button);
+        final Intent intent_start_scan = new Intent(this, ocr.OcrCaptureActivity.class);
 
         add_friend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,13 +115,12 @@ public class CreateContractDummy extends ActionBarActivity {
                             if (textlength <= c.getName().length()) {
                                 if (c.getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                                     tempArrayList.add(c);
-
                                 }
                             }
                         }
                         cust_adap = new CustomListAdapter(CreateContractDummy.this, tempArrayList);
                         listView.setAdapter(cust_adap);
-
+                        IDList = tempArrayList;
                     }
                     @Override
                     public void afterTextChanged(Editable editable) {}
@@ -130,8 +133,10 @@ public class CreateContractDummy extends ActionBarActivity {
                         str1 = IDList.get(i).getUsername();
                         not_id = IDList.get(i).getNoti_id();
                         str2 = IDList.get(i).getAddress();
+
                         friend_list.add(IDList.get(i));
                         friend_listview.setAdapter(friend_adap);
+
                         book.dismiss();
                     }
                 });
@@ -169,6 +174,25 @@ public class CreateContractDummy extends ActionBarActivity {
                 CreateContractMethod();
             }
         });
+        scan_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(intent_start_scan, 1);
+            }
+        });
+
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+                amount.setText(result);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
     public void CallThread(){
         RequestQueue queue = Volley.newRequestQueue(CreateContractDummy.this);
@@ -184,6 +208,7 @@ public class CreateContractDummy extends ActionBarActivity {
                     try {
                         JSONObject obj = response.getJSONObject(i);
                         ID id = new ID();
+
                         id.setUsername(obj.getString("username"));
                         id.setAddress(obj.getString("id"));
                         id.setName(obj.getString("name"));

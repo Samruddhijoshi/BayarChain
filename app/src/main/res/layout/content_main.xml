@@ -15,9 +15,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        app:backgroundTint="#fff316"
+        app:backgroundTint="#0e00bf"
         android:layout_margin="20dp"
-
         android:src="@android:drawable/ic_input_add"
         app:layout_behavior="sprint3_ad.ScrollController"/>
 </RelativeLayout>

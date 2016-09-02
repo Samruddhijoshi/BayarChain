@@ -17,12 +17,16 @@ public class GcmReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // Explicitly specify that GcmIntentService will handle the intent.
-        //String contract_id = intent.getStringExtra("KEY_CONTRACT_ID");
-        //Log.d("Contract ID bR" , contract_id);
+
         ComponentName comp = new ComponentName(context.getPackageName(),
                 PushNotificationService.class.getName());
         // Start the service, keeping the device awake while it is launching.
         startWakefulService(context, (intent.setComponent(comp)));
         setResultCode(Activity.RESULT_OK);
+        String action = intent.getAction();
+        if("ACTION_1".equals(action)) {
+            Log.d("shuffTest", "Pressed YES");
+        }
+
     }
 }
