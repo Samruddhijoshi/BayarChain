@@ -1,21 +1,22 @@
-package sprint3_ad;
+package sprint3ad;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bayarchain.R;
 
@@ -25,8 +26,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import Model.Contract;
-import Model.ID;
 import SessionManagement.SessionManager;
 
 public class Xfers extends AppCompatActivity {
@@ -36,6 +35,8 @@ public class Xfers extends AppCompatActivity {
     public static final String TAG = "XFERS_PAGE";
     SessionManager session;
     HashMap<String, String> map;
+    Button Xfer_copy, Save, Cancel;
+    ImageButton info;
 
 
     @Override
@@ -50,10 +51,43 @@ public class Xfers extends AppCompatActivity {
         contact  = (EditText)findViewById(R.id.editText7);
         email = (EditText)findViewById(R.id.email_xfer);
         apikey = (EditText)findViewById(R.id.xfer_api);
+        Xfer_copy = (Button)findViewById(R.id.xfer_copy_btn);
+        Save = (Button)findViewById(R.id.xfers_save_btn);
+        Cancel = (Button)findViewById(R.id.xfers_cancel_btn);
+        info = (ImageButton)findViewById(R.id.xfers_api_key_infobtn);
+
 
         fullname.setClickable(false);
         contact.setClickable(false);
         email.setClickable(false);
+
+        Xfer_copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sandbox.xfers.io/api_tokens"));
+                startActivity(browserIntent);
+            }
+        });
+        Save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //store on server and in session manager
+                session.storeXfersApiKey(apikey.getText().toString().trim());
+
+            }
+        });
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Xfers.this, "Tap on the Copy Button to Copy your Xfers wallet key from the website to Transfer money to friends!", Toast.LENGTH_LONG).show();
+            }
+        });
 
         CallThread();
 

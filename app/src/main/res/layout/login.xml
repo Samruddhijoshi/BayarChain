@@ -23,7 +23,10 @@
         android:layout_marginBottom="200dp"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/password"
-        android:layout_alignStart="@+id/password" />
+        android:layout_alignStart="@+id/password"
+        android:textColor="@color/colorAccent"
+        android:backgroundTint="#ffffff"
+        android:backgroundTintMode="src_atop" />
 
     <EditText
         android:id="@+id/password"
@@ -42,41 +45,12 @@
         android:alpha=".6"
         android:layout_marginTop="50dp"
         android:layout_alignTop="@+id/username1"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/signUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/oval_background"
-        android:minWidth="100sp"
-        android:text="Sign Up"
-        android:typeface="monospace"
-        android:alpha="0.85"
-        android:layout_below="@+id/password"
-        android:layout_alignRight="@+id/password"
-        android:layout_alignEnd="@+id/password"
-        android:layout_marginTop="20sp" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/oval_background"
-        android:minWidth="100sp"
-        android:text="Login"
-        android:width="50dp"
-        android:typeface="monospace"
-        android:allowUndo="false"
-        android:alpha="0.85"
-        android:layout_alignBaseline="@+id/signUp"
-        android:layout_alignBottom="@+id/signUp"
-        android:layout_alignLeft="@+id/password"
-        android:layout_alignStart="@+id/password" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorAccent" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
         android:id="@+id/imageView"
         android:layout_above="@+id/username1"
         android:layout_marginBottom="74dp"
@@ -86,5 +60,53 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/password"
+        android:weightSum="10"
+        android:layout_alignLeft="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_alignRight="@+id/password"
+        android:layout_alignEnd="@+id/password"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/oval_background"
+            android:minWidth="100sp"
+            android:text="Login"
+            android:width="50dp"
+            android:typeface="monospace"
+            android:allowUndo="false"
+            android:alpha="0.85"
+            android:layout_alignBaseline="@+id/signUp"
+            android:layout_alignBottom="@+id/signUp"
+            android:layout_alignLeft="@+id/password"
+            android:layout_alignStart="@+id/password"
+            android:backgroundTint="@color/colorAccent"
+            android:textColor="@android:color/background_light"
+            android:layout_weight="8" />
+
+        <Button
+            android:id="@+id/signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/oval_background"
+            android:minWidth="100sp"
+            android:text="Sign Up"
+            android:typeface="monospace"
+            android:alpha="0.85"
+            android:layout_below="@+id/password"
+            android:layout_alignRight="@+id/password"
+            android:layout_alignEnd="@+id/password"
+            android:layout_weight="2"
+            android:backgroundTint="#7affffff"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
 
 </RelativeLayout>

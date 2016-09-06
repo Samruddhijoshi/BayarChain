@@ -1,8 +1,5 @@
-package sprint3_ad;
+package sprint3ad;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -100,10 +96,11 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
                 ContractList.clear();
                 CallThread("credit");
                 listView.setAdapter(cust_adap);
-                listView.setOnClickListener(new View.OnClickListener() {
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
                     @Override
-                    public void onClick(View view) {
-                        Toast.makeText(ScrollingActivity.this, "No details available" , Toast.LENGTH_SHORT).show();
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                     }
                 });
             }
@@ -235,6 +232,49 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         movieReq.setRetryPolicy(new DefaultRetryPolicy(80000,	0, 1.0f));
         queue.add(movieReq);
     }
+    public void CallThread3(final String check){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="";
+        url = "http://bayarchain.southeastasia.cloudapp.azure.com/sam1.php?control=allContract" +
+                "&genname="    + map.get(SessionManager.KEY_NAME) +
+                "&password=" + map.get(SessionManager.KEY_PASS);
+        Log.d("Credit link", url);
+        ContractList.clear();
+        JsonArrayRequest movieReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d(TAG, response.toString().trim());
+                // Parsing json
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject obj = response.getJSONObject(i);
+                        Contract contract = new Contract();
+                        contract.setContract_address(obj.getString("contractID"));
+                        contract.setContract_amount(obj.getString("amount"));
+                        contract.setCreator_username(obj.getString("owner"));
+                        contract.setContract_status(obj.getString("status"));
+                        contract.setContract_timestamp(obj.getString("timestamp"));
+                        contract.setContract_event(obj.getString("event"));
+                        contract.setContract_principal(obj.getString("total"));
+
+                        ContractList.add(contract);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                cust_adap.notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        });
+        movieReq.setRetryPolicy(new DefaultRetryPolicy(80000,	0, 1.0f));
+        queue.add(movieReq);
+    }
     private void hidePDialog() {
         if (pDialog != null) {
             pDialog.dismiss();
@@ -292,12 +332,20 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStop() {
+        super.onStop();
+        Log.d("Inside On Stop", "Hello");
         cust_adap = new CustomListAdapter2(ScrollingActivity.this , ContractList, "debit");
         ContractList.clear();
-        CallThread2("debit");
+        CallThread3("debit");
+    }
+    //  @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Inside On Resume", "Hello");
+
         listView.setAdapter(cust_adap);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
@@ -307,10 +355,10 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
                 Contract con = new Contract();
                 con = ContractList.get(position);
                 intent.putExtra("TAB2_EVENTNAME", con.getContract_event());
-                intent.putExtra("TAB2_AMOUNT", con.getContract_amount());
-                intent.putExtra("TAB2_DATE", con.getContract_timestamp());
-                intent.putExtra("TAB2_OWNER", con.getCreator_username());
-                intent.putExtra("TAB2_STATUS", con.getContract_status());
+                intent.putExtra("TAB2_AMOUNT"   , con.getContract_amount());
+                intent.putExtra("TAB2_DATE"     , con.getContract_timestamp());
+                intent.putExtra("TAB2_OWNER"    , con.getCreator_username());
+                intent.putExtra("TAB2_STATUS"   , con.getContract_status());
                 intent.putExtra("TAB2_CONTRACT_ADD", con.getContract_address());
                 startActivity(intent);
             }

@@ -68,9 +68,9 @@
             android:layout_height="60dp"
             android:text="Clear Text"
             android:id="@+id/clear_button"
-            android:layout_weight="1"
-            android:background="@drawable/buttonshape2"
-            android:textColor="@color/primary_text_default_material_light" />
+            android:layout_weight="0.6"
+            android:textColor="@color/colorAccent"
+            android:backgroundTint="#79ffffff" />
 
         <Button
             android:layout_width="wrap_content"
@@ -80,9 +80,31 @@
             android:height="50sp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:background="@drawable/buttonshape4"
-            android:textColor="@android:color/background_light" />
+            android:layout_weight="1.4"
+            android:textColor="@android:color/background_light"
+            android:backgroundTint="@color/colorAccent" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Pinch to Zoom"
+        android:id="@+id/textView25"
+        android:layout_alignTop="@+id/graphicOverlay"
+        android:layout_alignRight="@+id/graphicOverlay"
+        android:layout_alignEnd="@+id/graphicOverlay"
+        android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="AutoFocus: On"
+        android:id="@+id/textView27"
+        android:textColor="@android:color/background_light"
+        android:layout_alignTop="@+id/graphicOverlay"
+        android:layout_alignLeft="@+id/graphicOverlay"
+        android:layout_alignStart="@+id/graphicOverlay" />
 
 </RelativeLayout>

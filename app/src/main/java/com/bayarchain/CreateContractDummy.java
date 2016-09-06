@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Adapters.CustomListAdapter;
+import Adapters.CustomListAdapterWithDelete;
 import Model.ID;
 import Push.Content;
 import Push.POST2GCM;
@@ -55,7 +56,8 @@ public class CreateContractDummy extends ActionBarActivity {
     private ListView friend_listview;
     private String[] products = {"Aditya","Gunj", "Manish"};
     public ArrayList<ID> IDList;
-    public CustomListAdapter cust_adap, friend_adap;
+    public CustomListAdapter cust_adap;
+    public CustomListAdapterWithDelete friend_adap;
     HashMap<String, String> hash;
     SessionManager session;
     String received_contract_address, date;
@@ -83,7 +85,7 @@ public class CreateContractDummy extends ActionBarActivity {
         hash = session.getUserDetails();
         IDList = new ArrayList<ID>();
         friend_list = new ArrayList<ID>();
-        friend_adap = new CustomListAdapter(CreateContractDummy.this, friend_list);
+        friend_adap = new CustomListAdapterWithDelete(CreateContractDummy.this, friend_list);
         scan_button = (Button)findViewById(R.id.scan_button);
         final Intent intent_start_scan = new Intent(this, ocr.OcrCaptureActivity.class);
 
@@ -161,17 +163,19 @@ public class CreateContractDummy extends ActionBarActivity {
                         String ddate = String.valueOf(i) + "-" + String.valueOf(i1) + "-" + String.valueOf(i2);
                         final_date = ddate;
                         Log.d(TAG, ddate);
-                        date_selector.setText(new SimpleDateFormat("MMMM").format(month) + " " + day);
+                        date_selector.setText(new SimpleDateFormat("Mmmm").format(datePicker.getMonth()) + " " + day);
+
                         book.dismiss();
                     }
                 });
                 Log.d("Updated Date", date);
+
                 book.show();
             }        });
         create_contract_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CreateContractMethod();
+                MultipleFriendsControllr();
             }
         });
         scan_button.setOnClickListener(new View.OnClickListener() {
@@ -208,14 +212,11 @@ public class CreateContractDummy extends ActionBarActivity {
                     try {
                         JSONObject obj = response.getJSONObject(i);
                         ID id = new ID();
-
                         id.setUsername(obj.getString("username"));
                         id.setAddress(obj.getString("id"));
                         id.setName(obj.getString("name"));
                         id.setNoti_id(obj.getString("noti_id"));
-
                         IDList.add(id);
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -229,7 +230,6 @@ public class CreateContractDummy extends ActionBarActivity {
                 //hidePDialog();
             }
         });
-
         queue.add(movieReq);
     }
     private void CreateContractMethod() {
@@ -239,7 +239,6 @@ public class CreateContractDummy extends ActionBarActivity {
             Log.d("Amount" , amount + amount.toString().substring(1, amount.toString().length()).trim() );
         else
             Toast.makeText(CreateContractDummy.this, "Enter the amount to be spilt", Toast.LENGTH_SHORT).show();
-
         String event_Name = this.expense_name.getText().toString().trim();
         String receiver_name = str_name;//this.user.getText().toString().trim();
         String receiver_username = str1; //this.user2.getText().toString().trim();
@@ -263,18 +262,18 @@ public class CreateContractDummy extends ActionBarActivity {
 
         Log.d(TAG, url2);
         if (!amount.equals(null) && !event_Name.equals(null) && !receiver_name.equals(null) && !receiver_address.equals(null) && !receiver_notification_id.equals(null)) {
-                    StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
+            StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
 
-                        public void onResponse(String response) {
+                public void onResponse(String response) {
 
                     Log.d(TAG, response.toString().trim());
                     hidePDialog();
                     if(!response.equals("")){
-                    received_contract_address = response.toString().trim();
-                    Send_Notification(received_contract_address);
-                    Toast.makeText(CreateContractDummy.this, "Contract Created, your friend has been notified", Toast.LENGTH_SHORT).show();
-                    Log.d("Response of create contract", received_contract_address);
-                    CreateContractDummy.this.finish();}
+                        received_contract_address = response.toString().trim();
+                        Send_Notification(received_contract_address);
+                        Toast.makeText(CreateContractDummy.this, "Contract Created, your friend has been notified", Toast.LENGTH_SHORT).show();
+                        Log.d("Response of create contract", received_contract_address);
+                        CreateContractDummy.this.finish();}
                     else{
                         Toast.makeText(CreateContractDummy.this , "There was an error adding this contract, Please try again later", Toast.LENGTH_LONG).show();
                     }
@@ -288,6 +287,63 @@ public class CreateContractDummy extends ActionBarActivity {
             createContract.setRetryPolicy(new DefaultRetryPolicy(20000,	0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             queue2.add(createContract);
         }
+    }
+
+    public void MultipleFriendsControllr(){
+        RequestQueue queue = Volley.newRequestQueue(CreateContractDummy.this);
+        IDList.clear();
+        StringRequest[] movieReq = new StringRequest[5];
+
+        for(int i=0;i<friend_list.size();i++) {
+            String event_Name = this.expense_name.getText().toString().trim();
+            String receiver_name = friend_list.get(i).getUsername().toString().trim();//this.user.getText().toString().trim();
+            String receiver_username = friend_list.get(i).getUsername().toString().trim(); //this.user2.getText().toString().trim();
+            String receiver_address = friend_list.get(i).getAddress().toString().trim(); //this.user3.getText().toString().trim();
+            String receiver_notification_id = friend_list.get(i).getNoti_id().toString().trim();
+            movieReq[i] = MultipleFreinds(receiver_name, receiver_notification_id, event_Name);
+            queue.add(movieReq[i]);
+        }
+        String ev_name = this.expense_name.getText().toString().trim();
+    }
+    public StringRequest MultipleFreinds( String uname, String noti_id, String ename) {
+
+        String url2 = "http://23.97.60.51/sam1.php?" +
+                "control=create"+
+                "&genname=" 	+ hash.get(SessionManager.KEY_NAME) +
+                "&password=" 	+ hash.get(SessionManager.KEY_PASS) +
+                "&recname=" 	+ uname+
+                "&amount=" 		+ "100" +
+                "&timestamp=" 	+ final_date +
+                "&eventName="   + ename;
+        StringRequest global=null;
+        Log.d(TAG, url2);
+        if (!amount.equals(null) && !ename.equals(null) && !uname.equals(null)  && !noti_id.equals(null)) {
+            StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
+
+                public void onResponse(String response) {
+                    hidePDialog();
+                    Log.d(TAG, response.toString().trim());
+
+                    if(!response.equals("")){
+                        received_contract_address = response.toString().trim();
+                        Send_Notification(received_contract_address);
+                        Toast.makeText(CreateContractDummy.this, "Contract Created, your friend has been notified", Toast.LENGTH_SHORT).show();
+                        Log.d("Response of create contract", received_contract_address);
+                        CreateContractDummy.this.finish();}
+                    else{
+                        Toast.makeText(CreateContractDummy.this , "There was an error adding this contract, Please try again later", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                }
+            });
+            createContract.setRetryPolicy(new DefaultRetryPolicy(20000,	5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            global = createContract;
+        }
+        return global;
     }
     private void hidePDialog() {
         if (pDialog != null) {

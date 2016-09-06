@@ -16,12 +16,13 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/imageView2"
-        android:layout_alignParentTop="true"
+        android:src="@drawable/logo_list"
+        android:layout_below="@+id/view3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/logo_list"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp" />
 
     <TextView
         android:id="@+id/username1"
@@ -33,9 +34,10 @@
         android:textSize="20sp"
         android:paddingTop="10sp"
         android:gravity="right"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/address1"
-        android:layout_alignStart="@+id/address1" />
+        android:layout_below="@+id/view3"
+        android:layout_toRightOf="@+id/imageView2"
+        android:layout_toEndOf="@+id/imageView2"
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:id="@+id/address1"
@@ -45,13 +47,21 @@
         android:text="Address"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:paddingLeft="15sp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:textSize="9dp"
-        android:gravity="left"
         android:paddingRight="10sp"
+        android:gravity="left"
         android:layout_below="@+id/username1"
         android:layout_toRightOf="@+id/imageView2"
         android:layout_toEndOf="@+id/imageView2" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/delete_list_btn"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/delete_btn"
+        android:layout_marginRight="10dp" />
 
 </RelativeLayout>

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="sprint3_ad.Xfers">
+    tools:context="sprint3ad.Xfers">
 
 
 
@@ -31,7 +31,8 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:editable="true"
-        android:elegantTextHeight="false" />
+        android:elegantTextHeight="false"
+        android:enabled="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,7 +54,8 @@
         android:layout_below="@+id/asdasdsada"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:editable="true" />
+        android:editable="true"
+        android:enabled="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,7 +77,8 @@
         android:layout_below="@+id/textView21"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:editable="true" />
+        android:editable="true"
+        android:enabled="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -108,12 +111,51 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/xfer_copy_btn"
         android:layout_alignTop="@+id/xfer_api"
         android:layout_toRightOf="@+id/xfer_api"
-        android:layout_toEndOf="@+id/xfer_api" />
+        android:layout_toEndOf="@+id/xfer_api"
+        android:background="@drawable/abc_ic_menu_copy_mtrl_am_alpha"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_marginLeft="5dp" />
+
+    <Button
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:text="Save API Key"
+        android:id="@+id/xfers_save_btn"
+        android:layout_below="@+id/xfer_api"
+        android:layout_toLeftOf="@+id/xfer_copy_btn"
+        android:layout_toStartOf="@+id/xfer_copy_btn"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/background_light"
+        android:backgroundTint="@color/colorAccent"
+        android:backgroundTintMode="src_over" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/xfers_cancel_btn"
+        android:layout_alignBottom="@+id/xfers_save_btn"
+        android:layout_toLeftOf="@+id/xfers_save_btn"
+        android:layout_alignLeft="@+id/email_xfer"
+        android:layout_alignStart="@+id/email_xfer"
+        android:backgroundTint="#b2ffffff"
+        android:textColor="@color/colorAccent" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/xfers_api_key_infobtn"
+        android:src="@android:drawable/ic_menu_info_details"
+        android:layout_alignBottom="@+id/xfer_api"
+        android:layout_toLeftOf="@+id/textView22"
+        android:layout_toStartOf="@+id/textView22"
+        android:layout_marginRight="5dp"
+        android:background="#00ffffff"
+        android:backgroundTint="@color/colorPrimary" />
 
 </RelativeLayout>

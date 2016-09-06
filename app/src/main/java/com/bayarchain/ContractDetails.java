@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,16 +28,14 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.*;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 
 import java.util.HashMap;
 
-import Model.ID;
 import Push.Content;
 import Push.POST2GCM;
 import SessionManagement.SessionManager;
-import sprint3_ad.ScrollingActivity;
+import sprint3ad.ScrollingActivity;
 
 public class ContractDetails extends AppCompatActivity {
 

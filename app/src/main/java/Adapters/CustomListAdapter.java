@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bayarchain.R;
@@ -49,7 +50,7 @@ import Model.ID;
     @Override
 
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
             if (inflater == null)
                 inflater = (LayoutInflater) activity
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,11 +60,14 @@ import Model.ID;
 
             TextView username = (TextView) convertView.findViewById(R.id.username1);
             TextView address = (TextView) convertView.findViewById(R.id.address1);
-           // TextView fullName = (TextView) convertView.findViewById(R.id.fullname1);
+            Button delete_btn = (Button)convertView.findViewById(R.id.delete_list_btn);
+
+        // TextView fullName = (TextView) convertView.findViewById(R.id.fullname1);
 
             username.setText(object.getUsername());
             address.setText("Unique ID: " + object.getAddress());
             //fullName.setText(object.getName());
+
             return convertView;
         }
         //public View getView(int position, View convertView, ViewGroup parent) {

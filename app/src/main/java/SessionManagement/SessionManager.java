@@ -67,6 +67,15 @@ public class SessionManager {
 		Log.d("PAYMENT_NOTI_SHARED_PREF", message);
 		editor.commit();
 	}
+	public void storeXfersApiKey(String message){
+		editor.putString(KEY_API_XFER, message);
+		Log.d("KEY_API_XFER", message);
+		editor.commit();
+	}
+	public String returnXferApiKey(){
+		return pref.getString(KEY_API_XFER, null);
+
+	}
 	public String returnStoredMessage(){
 		return pref.getString(KEY_PAYMENT_RECIEIVED, null);
 	}

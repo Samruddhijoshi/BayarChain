@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.RelativeLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -23,8 +22,8 @@ import com.google.android.gms.gcm.GcmListenerService;
 import java.util.HashMap;
 
 import SessionManagement.SessionManager;
-import sprint3_ad.PaymentReceived;
-import sprint3_ad.ScrollingActivity;
+import sprint3ad.PaymentReceived;
+import sprint3ad.ScrollingActivity;
 
 public class PushNotificationService extends GcmListenerService{
 

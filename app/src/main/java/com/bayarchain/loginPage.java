@@ -2,7 +2,6 @@ package com.bayarchain;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import Push.GCMClientManager;
 import SessionManagement.SessionManager;
-import sprint3_ad.ScrollingActivity;
+import sprint3ad.ScrollingActivity;
 import usused.TabActivity;
 
 
@@ -67,9 +66,10 @@ public class loginPage extends AppCompatActivity {
 		loginBtn = (Button) findViewById(R.id.login);
 		signUpBtn = (Button) findViewById(R.id.signUp);
 		session = new SessionManager(getBaseContext());
-		SharedPreferences sharedPref = this.getPreferences(getBaseContext().MODE_PRIVATE);
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		this.getActionBar().show();
+
 		final GCMClientManager pushClientManager = new GCMClientManager(this, "721883998676");
 
 		loginBtn.setOnClickListener(new OnClickListener(){

@@ -11,5 +11,6 @@
         android:id="@+id/action_manage"
         android:orderInCategory="100"
         android:title="Xfers"
-        app:showAsAction="never" />
+        android:icon="@drawable/xfers_png"
+        app:showAsAction="ifRoom" />
 </menu>

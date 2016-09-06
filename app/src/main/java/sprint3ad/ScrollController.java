@@ -1,4 +1,4 @@
-package sprint3_ad;
+package sprint3ad;
 
 import android.content.Context;
 import android.os.Build;
@@ -12,9 +12,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
-
-import com.bayarchain.R;
-import com.google.android.gms.common.api.Scope;
 
 /**
  * Created by Aditya Aggarwal on 24-08-2016.
