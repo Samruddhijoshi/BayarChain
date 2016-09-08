@@ -68,7 +68,6 @@ public class loginPage extends AppCompatActivity {
 		session = new SessionManager(getBaseContext());
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-		this.getActionBar().show();
 
 		final GCMClientManager pushClientManager = new GCMClientManager(this, "721883998676");
 

@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -28,6 +30,9 @@ import com.android.volley.toolbox.Volley;
 import com.bayarchain.ContractDetails;
 import com.bayarchain.CreateContractDummy;
 import com.bayarchain.R;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 
 import org.json.JSONArray;
@@ -53,7 +58,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
     HashMap<String, String> map;
     private ArrayAdapter<String> adapter;
     private String[] products = {"Tap Credit/Debit to Refresh"};
-
+    ShowcaseView sv;
     private SessionManager session;
 
     @Override
@@ -62,6 +67,25 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+
+        View showcasedView = findViewById(R.id.fab);
+        ViewTarget target = new ViewTarget(showcasedView);
+
+        sv = new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setStyle(R.style.CustomShowcaseTheme3)
+                .setTarget(target)
+                .setContentTitle("Add Expense")
+                .setContentText("Tap the + Button to add a new Expense!!")
+                .hideOnTouchOutside()
+                .build();
+        sv.setButtonPosition(lps);
 
         credit = (Button)findViewById(R.id.credit);
         debit = (Button)findViewById(R.id.debit);
