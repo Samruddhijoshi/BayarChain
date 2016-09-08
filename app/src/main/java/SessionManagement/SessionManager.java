@@ -41,7 +41,8 @@ public class SessionManager {
 	public static final String KEY_NOTIFICATION_ID = "noti_id";
 	// on recieve intent codes for notifications of payment confirmation
 	public static final String KEY_PAYMENT_RECIEIVED = "payment_rec";
-
+	//help screen count
+	public static final String KEY_HELP_SCREEN = "help_screen";
 
 	// Constructor
 	public SessionManager(Context context){
@@ -61,7 +62,18 @@ public class SessionManager {
 		editor.putString(KEY_PASS, pass);
 		// commit changes
 		editor.commit();
-	}	
+	}
+
+	public void storehelpScreen(int i){
+		editor.putInt(KEY_HELP_SCREEN, i);
+		Log.d("HELPSCREEN_SHARED_PREF", String.valueOf(i));
+
+		editor.commit();
+	}
+	public int getHelpScreen(){
+		return pref.getInt(KEY_HELP_SCREEN, 0);
+	}
+
 	public void storeMessage(String message){
 		editor.putString(KEY_PAYMENT_RECIEIVED, message);
 		Log.d("PAYMENT_NOTI_SHARED_PREF", message);
@@ -74,7 +86,6 @@ public class SessionManager {
 	}
 	public String returnXferApiKey(){
 		return pref.getString(KEY_API_XFER, null);
-
 	}
 	public String returnStoredMessage(){
 		return pref.getString(KEY_PAYMENT_RECIEIVED, null);

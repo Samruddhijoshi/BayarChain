@@ -26,7 +26,8 @@
         android:layout_alignStart="@+id/password"
         android:textColor="@color/colorAccent"
         android:backgroundTint="#ffffff"
-        android:backgroundTintMode="src_atop" />
+        android:backgroundTintMode="src_atop"
+        android:lines="1" />
 
     <EditText
         android:id="@+id/password"
@@ -46,7 +47,8 @@
         android:layout_marginTop="50dp"
         android:layout_alignTop="@+id/username1"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:lines="1" />
 
     <ImageView
         android:layout_width="400dp"
@@ -88,8 +90,8 @@
             android:layout_alignBottom="@+id/signUp"
             android:layout_alignLeft="@+id/password"
             android:layout_alignStart="@+id/password"
-            android:backgroundTint="@color/colorAccent"
-            android:textColor="@android:color/background_light"
+            android:backgroundTint="#bfffffff"
+            android:textColor="@android:color/black"
             android:layout_weight="8" />
 
         <Button

@@ -20,11 +20,23 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bayarchain.R;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import SessionManagement.SessionManager;
 
@@ -61,6 +73,8 @@ public class Xfers extends AppCompatActivity {
         contact.setClickable(false);
         email.setClickable(false);
 
+        CallThread();
+
         Xfer_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +87,9 @@ public class Xfers extends AppCompatActivity {
             public void onClick(View view) {
                 //store on server and in session manager
                 session.storeXfersApiKey(apikey.getText().toString().trim());
-
+                String key = Xfer_copy.getText().toString();
+                Log.d("HELOOOOOOOOOOOOOO", key);
+                CallThread2(key);
             }
         });
         Cancel.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +104,8 @@ public class Xfers extends AppCompatActivity {
                 Toast.makeText(Xfers.this, "Tap on the Copy Button to Copy your Xfers wallet key from the website to Transfer money to friends!", Toast.LENGTH_LONG).show();
             }
         });
-
-        CallThread();
-
     }
+
     public void CallThread(){ //getting user details everytime
 
         pDialog = new ProgressDialog(this);
@@ -138,6 +152,37 @@ public class Xfers extends AppCompatActivity {
         });
         queue.add(movieReq);
 
+    }
+
+    protected void CallThread2(final String key) {
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                HttpClient httpClient =
+                        new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost("http://23.97.60.51/bayar_mysql/enter_xfer_key.php");
+                //Post Data
+                List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+
+                nameValuePair.add(new BasicNameValuePair("phone", contact.getText().toString()));
+                nameValuePair.add(new BasicNameValuePair("xferkey",apikey.getText().toString()));
+
+                try {
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                    try {
+                        HttpResponse response = httpClient.execute(httpPost);
+                        Log.d("Response", response.getEntity().toString());
+                    } catch (ClientProtocolException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            } });
+
+        thread.start();
     }
     private void hidePDialog() {
         if (pDialog != null) {

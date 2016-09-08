@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="sprint3ad.Xfers">
+    tools:context="sprint3ad.Xfers"
+    android:background="#ffffff">
 
 
 
@@ -17,7 +18,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Fullname"
         android:id="@+id/textView17"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="130dp"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -26,7 +27,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/xfer_full_name"
-        android:background="#cfd7d7d7"
+        android:background="#bfeae9e9"
         android:layout_below="@+id/textView17"
         android:layout_centerHorizontal="true"
         android:gravity="center"
@@ -38,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Contact Number on Xfers"
+        android:text="Contact Number"
         android:id="@+id/asdasdsada"
         android:layout_below="@+id/xfer_full_name"
         android:layout_centerHorizontal="true"
@@ -50,7 +51,7 @@
         android:inputType="phone"
         android:ems="10"
         android:id="@+id/editText7"
-        android:background="#ccd3d3d3"
+        android:background="#bfeae9e9"
         android:layout_below="@+id/asdasdsada"
         android:layout_centerHorizontal="true"
         android:gravity="center"
@@ -61,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Email ID on Xfers"
+        android:text="Email ID"
         android:id="@+id/textView21"
         android:layout_below="@+id/editText7"
         android:layout_centerHorizontal="true"
@@ -73,7 +74,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/email_xfer"
-        android:background="#cbdbdbdb"
+        android:background="#bfeae9e9"
         android:layout_below="@+id/textView21"
         android:layout_centerHorizontal="true"
         android:gravity="center"
@@ -97,10 +98,10 @@
         android:layout_below="@+id/textView22"
         android:layout_alignRight="@+id/email_xfer"
         android:layout_alignEnd="@+id/email_xfer"
-        android:layout_alignLeft="@+id/asdasdsada"
-        android:layout_alignStart="@+id/asdasdsada"
-        android:background="#ccd3d3d3"
-        android:gravity="center" />
+        android:background="#bfeae9e9"
+        android:gravity="center"
+        android:layout_alignLeft="@+id/email_xfer"
+        android:layout_alignStart="@+id/email_xfer" />
 
     <ImageView
         android:layout_width="150dp"
@@ -122,29 +123,29 @@
         android:layout_marginLeft="5dp" />
 
     <Button
-        android:layout_width="125dp"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:text="Save API Key"
         android:id="@+id/xfers_save_btn"
         android:layout_below="@+id/xfer_api"
-        android:layout_toLeftOf="@+id/xfer_copy_btn"
-        android:layout_toStartOf="@+id/xfer_copy_btn"
         android:layout_marginTop="20dp"
         android:textColor="@android:color/background_light"
         android:backgroundTint="@color/colorAccent"
-        android:backgroundTintMode="src_over" />
+        android:backgroundTintMode="src_over"
+        android:layout_alignRight="@+id/xfer_copy_btn"
+        android:layout_alignEnd="@+id/xfer_copy_btn" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:id="@+id/xfers_cancel_btn"
         android:layout_alignBottom="@+id/xfers_save_btn"
         android:layout_toLeftOf="@+id/xfers_save_btn"
-        android:layout_alignLeft="@+id/email_xfer"
-        android:layout_alignStart="@+id/email_xfer"
         android:backgroundTint="#b2ffffff"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:layout_alignLeft="@+id/xfers_api_key_infobtn"
+        android:layout_alignStart="@+id/xfers_api_key_infobtn" />
 
     <ImageButton
         android:layout_width="40dp"
@@ -157,5 +158,17 @@
         android:layout_marginRight="5dp"
         android:background="#00ffffff"
         android:backgroundTint="@color/colorPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Enter details of Xfer Account"
+        android:id="@+id/textView28"
+        android:layout_below="@+id/imageView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

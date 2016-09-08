@@ -68,6 +68,8 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        session = new SessionManager(this);
+
         RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -76,16 +78,17 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
 
         View showcasedView = findViewById(R.id.fab);
         ViewTarget target = new ViewTarget(showcasedView);
-
-        sv = new ShowcaseView.Builder(this)
-                .withMaterialShowcase()
-                .setStyle(R.style.CustomShowcaseTheme3)
-                .setTarget(target)
-                .setContentTitle("Add Expense")
-                .setContentText("Tap the + Button to add a new Expense!!")
-                .hideOnTouchOutside()
-                .build();
-        sv.setButtonPosition(lps);
+        if(session.getHelpScreen() == 0) {
+            sv = new ShowcaseView.Builder(this)
+                    .withMaterialShowcase()
+                    .setStyle(R.style.CustomShowcaseTheme3)
+                    .setTarget(target)
+                    .setContentTitle("Add Expense")
+                    .setContentText("Tap the '+' Button to add a new Expense!!")
+                    .build();
+            sv.setButtonPosition(lps);
+            session.storehelpScreen(1);
+        }
 
         credit = (Button)findViewById(R.id.credit);
         debit = (Button)findViewById(R.id.debit);
@@ -95,7 +98,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         fullname_appbar = (TextView)findViewById(R.id.fullName_activityscrolling);
         username_appbar = (TextView)findViewById(R.id.username_activityscrolling);
 
-        session = new SessionManager(this);
+
         session.checkLogin();
 
         map = new HashMap<String, String>();

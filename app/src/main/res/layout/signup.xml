@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                  android:layout_height="match_parent"
             android:fillViewport="true"
-    android:background="@drawable/background4">
+   >
 <RelativeLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,13 +21,15 @@
         android:inputType="textPersonName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/white"
         android:maxLines="1"
         android:height="40sp"
         android:padding="10sp"
         android:typeface="monospace"
         android:alpha=".6"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:lines="1"
+        android:autoText="true"
+        android:background="#c9ffffff">
 
         <requestFocus />
     </EditText>
@@ -45,12 +47,13 @@
         android:layout_below="@+id/password"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
-        android:background="@android:color/white"
+        android:background="#c9ffffff"
         android:height="40sp"
         android:padding="10sp"
         android:typeface="monospace"
         android:alpha=".6"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:lines="1" />
 
     <EditText
         android:id="@+id/password"
@@ -65,12 +68,13 @@
         android:layout_below="@+id/username1"
         android:layout_alignLeft="@+id/username1"
         android:layout_alignStart="@+id/username1"
-        android:background="@android:color/white"
+        android:background="#c9ffffff"
         android:height="40sp"
         android:padding="10sp"
         android:typeface="monospace"
         android:alpha=".6"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:lines="1" />
 
     <EditText
         android:id="@+id/emailaddress"
@@ -85,7 +89,7 @@
         android:layout_below="@+id/firstName"
         android:layout_alignLeft="@+id/firstName"
         android:layout_alignStart="@+id/firstName"
-        android:background="@android:color/white"
+        android:background="#c9ffffff"
         android:height="40sp"
         android:padding="10sp"
         android:typeface="monospace"
@@ -94,7 +98,8 @@
         android:textIsSelectable="false"
         android:textSize="15dp"
         android:layout_alignRight="@+id/firstName"
-        android:layout_alignEnd="@+id/firstName" />
+        android:layout_alignEnd="@+id/firstName"
+        android:lines="1" />
 
     <Button
         android:id="@+id/signUpBtn"
@@ -125,12 +130,13 @@
         android:layout_alignEnd="@+id/emailaddress"
         android:hint="Username"
         android:gravity="center"
-        android:background="@android:color/white"
+        android:background="#c9ffffff"
         android:height="40sp"
         android:padding="10sp"
         android:typeface="monospace"
         android:alpha=".6"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:lines="1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -144,12 +150,13 @@
         android:layout_alignLeft="@+id/confirmPassword"
         android:layout_alignStart="@+id/confirmPassword"
         android:alpha="0.6"
-        android:background="@android:color/white"
+        android:background="#c9ffffff"
         android:height="40sp"
         android:minHeight="40sp"
         android:hint="Xfers Contact Number"
         android:phoneNumber="true"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:lines="1" />
 
 </RelativeLayout>
 </ScrollView>
