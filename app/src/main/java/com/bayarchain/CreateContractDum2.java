@@ -255,8 +255,6 @@ public class CreateContractDum2 extends ActionBarActivity {
     }
     public void MultipleFriendsControllr(){
 
-
-
         RequestQueue queue = Volley.newRequestQueue(CreateContractDum2.this);
         IDList.clear();
         StringRequest[] movieReq = new StringRequest[5];
@@ -291,7 +289,7 @@ public class CreateContractDum2 extends ActionBarActivity {
                 public void onResponse(String response) {
 
                     Log.d(TAG, response.toString().trim());
-                    if(!response.equals("")){
+                    if(response.toString().trim().length()!=40){
                         received_contract_address = response.toString().trim();
                         Send_Notification(received_contract_address, noti);
                         Toast.makeText(CreateContractDum2.this, "Contract Created, your friend "+ uname+ " has been notified", Toast.LENGTH_SHORT).show();

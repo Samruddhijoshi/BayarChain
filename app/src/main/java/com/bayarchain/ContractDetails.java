@@ -51,7 +51,6 @@ public class ContractDetails extends AppCompatActivity {
     private Button                      pay_final;
     private final String                NOTIFICATION_TYPE = "PAYMENT";
     private TextView                    name, eventname, date, amt, status, payment_method;
-    private Button settle, settle_cash;
     private Boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +87,8 @@ public class ContractDetails extends AppCompatActivity {
         Inputamount = (EditText)findViewById(R.id.inputamount);
         payment_method = (TextView)findViewById(R.id.textView19);
 
-        name.setText(str4); // rec name
-        eventname.setText(str1); //event name
+        name.setText(str4);
+        eventname.setText(str1);
         date.setText(str2);
         amt.setText(str3);
 
@@ -148,9 +147,11 @@ public class ContractDetails extends AppCompatActivity {
     }
     public void Send_Notification(String str){
         String apiKey = "AIzaSyCHslDzvLhkgY_k-J5C_us2T7YHhMgJabw";
-        Content content = createContent(str);
-        Log.d(TAG, "inside method send notification");
-        POST2GCM.post(apiKey, content);
+        if(!str.toString().trim().equals("Payment has been successful")) {
+            Content content = createContent(str);
+            Log.d(TAG, "inside method send notification");
+            POST2GCM.post(apiKey, content);
+        }
     }
     public Content createContent(String str){
         //get notification id of other user.
@@ -178,6 +179,7 @@ public class ContractDetails extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject obj = response.getJSONObject(i);
+
                         Send_Notification(obj.getString("noti_id"));
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -191,20 +193,16 @@ public class ContractDetails extends AppCompatActivity {
                 //hidePDialog();
             }
         });
-
         queue.add(movieReq);
     }
 
     private void CreateCashPayout(String amount) {
-        //send notification from payee to reciever, asking if he has received the money.
-        //Send_Notification("Tap to confirm that you have recieved cash settlement for the Expense " + str1);
+
         Log.d(TAG, "inside method");
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Paid with Cash..Please wait");
         pDialog.show();
         queue2 = Volley.newRequestQueue(getBaseContext());
-        Log.d(TAG, hash.get(SessionManager.KEY_NAME));
-        Log.d(TAG, hash.get(SessionManager.KEY_PASS));
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url2 = "http://23.97.60.51/pri.php?" +
