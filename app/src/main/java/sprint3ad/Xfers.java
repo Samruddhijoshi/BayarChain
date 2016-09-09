@@ -90,6 +90,11 @@ public class Xfers extends AppCompatActivity {
                 String key = Xfer_copy.getText().toString();
                 Log.d("HELOOOOOOOOOOOOOO", key);
                 CallThread2(key);
+
+                session.storeEmail(email.getText().toString().trim());
+                session.storeXfersApiKey(apikey.getText().toString().trim());
+                finish();
+
             }
         });
         Cancel.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +142,7 @@ public class Xfers extends AppCompatActivity {
                         fullname.setText(obj.getString("fullname"));
                         contact.setText(obj.getString("contact"));
                         email.setText(obj.getString("email"));
+                        apikey.setText(obj.getString("xferkey"));
 
                     } catch (JSONException e) {
                         e.printStackTrace();

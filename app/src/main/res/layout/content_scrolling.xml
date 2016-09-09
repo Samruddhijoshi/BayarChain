@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout2"
@@ -9,7 +10,6 @@
     tools:context="sprint3ad.ScrollingActivity"
     android:fillViewport="true"
     tools:showIn="@layout/activity_scrolling">
-
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linelayout"
@@ -47,23 +47,11 @@
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="3000dp"
             android:id="@+id/listView"
-            android:layout_weight="1"
-            android:layout_below="@+id/textView24" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Tap To Refresh"
-            android:id="@+id/textView24"
-            android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="3dp" />
-
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_below="@+id/linearLayout" />
 
     </RelativeLayout>
-
 
 </android.support.v4.widget.NestedScrollView>

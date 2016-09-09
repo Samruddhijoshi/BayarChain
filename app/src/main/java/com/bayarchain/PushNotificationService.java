@@ -31,11 +31,9 @@ public class PushNotificationService extends GcmListenerService{
     RequestQueue queue;
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        Intent notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
         NotificationCompat.Builder mBuilder;
         NotificationManager mNotifyMgr;
         int requestID = (int) System.currentTimeMillis();
-        PendingIntent contentIntent =  PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         int mNotificationId = 000;
         SessionManager session = new SessionManager(this);
 
@@ -44,24 +42,16 @@ public class PushNotificationService extends GcmListenerService{
         Log.d("Notification Received", title +"   "+ message);
 
         if(title.equals("CONTRACT")) {
+            Intent notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
             contract_id = message.substring(13, 53).trim();
             Log.d("Trimmed Notification", contract_id);
             Notify(contract_id);
+            PendingIntent contentIntent =  PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
             notificationIntent.putExtra("KEY_CONTRACT_ID", contract_id);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        else if(title.trim().equals("PAYMENT")) {
-            Log.d("Trimmed Notification", "Hello");
-            notificationIntent = new Intent(getApplicationContext(), PaymentReceived.class);
-            notificationIntent.putExtra("KEY_PAYMENT", message);
-            Log.d("PAYMENT_NOTI", message);
-            session.storeMessage(message);
-            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        mBuilder = new NotificationCompat.Builder(this)
+            mBuilder = new NotificationCompat.Builder(this)
                     .setContentTitle("Bayar Chain")
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo_list))
                     .setAutoCancel(true)
@@ -70,12 +60,33 @@ public class PushNotificationService extends GcmListenerService{
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setContentIntent(contentIntent)
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(message));
-                    //.addAction(R.drawable.abc_btn_check_to_on_mtrl_015, "APPROVE", contentIntent)
-                    //.addAction(R.drawable.abc_ic_clear_mtrl_alpha     , "REJECT" , contentIntent);
+            mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            mNotifyMgr.notify(mNotificationId++, mBuilder.build());
+        }
+        else if(title.trim().equals("PAYMENT")) {
+            Intent notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
+            Log.d("Trimmed Notification", "Hello");
+            PendingIntent contentIntent =  PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationIntent = new Intent(getApplicationContext(), PaymentReceived.class);
+            notificationIntent.putExtra("KEY_PAYMENT", message);
+            Log.d("PAYMENT_NOTI", message);
+            session.storeMessage(message);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder = new NotificationCompat.Builder(this)
+                    .setContentTitle("Bayar Chain")
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo_list))
+                    .setAutoCancel(true)
+                    .setSmallIcon(R.drawable.logo_list)
+                    .setContentText(message)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setContentIntent(contentIntent)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message));
             mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             mNotifyMgr.notify(mNotificationId++, mBuilder.build());
         }
 
+        }
 
     private void Notify(String contract_id) {
         queue = Volley.newRequestQueue(this);
@@ -86,7 +97,7 @@ public class PushNotificationService extends GcmListenerService{
             Log.d("Hello", map.get(SessionManager.KEY_NAME));
             Log.d("Hello", map.get(SessionManager.KEY_PASS));
 
-            String url = "http://bayarchain.southeastasia.cloudapp.azure.com/sam1.php?" +
+            String url = "http://bayarchain.southeastasia.cloudapp.azure.com/pri.php?" +
                     "control=notify" +
                     "&id=" + contract_id +
                     "&genname=" + map.get(SessionManager.KEY_NAME) +
@@ -97,11 +108,6 @@ public class PushNotificationService extends GcmListenerService{
 
                 public void onResponse(String response) {
                     Log.d(TAG, response.toString().trim());
-                    //hidePDialog();
-                    //received_contract_address = response.toString().trim();
-                    ///Send_Notification(received_contract_address);
-
-                    //Log.d(TAG, received_contract_address);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -109,11 +115,8 @@ public class PushNotificationService extends GcmListenerService{
                     VolleyLog.d(TAG, "Error: " + error.getMessage());
                 }
             });
-            // Adding request to request queue
             createContract.setRetryPolicy(new DefaultRetryPolicy(20000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
             queue.add(createContract);
-            //Log.d(TAG + "asdas", received_contract_address);
         }
     }
 }

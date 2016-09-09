@@ -99,15 +99,19 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         clear_btn = (Button)findViewById(R.id.clear_button);
         continue_btn = (Button)findViewById(R.id.continue_button);
 
+
         continue_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!demoName.getText().toString().equals("")) {
+
+                if(!demoName.getText().toString().equals("") && isDouble(demoName.getText().toString().trim())) {
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("result", demoName.getText().toString().trim());
                     setResult(Activity.RESULT_OK, returnIntent);
                     OcrCaptureActivity.this.finish();
                 }
+                else
+                    Toast.makeText(OcrCaptureActivity.this, "Please enter only numbers!", Toast.LENGTH_SHORT).show();
             }
         });
         clear_btn.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +120,6 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                 demoName.setText("");
             }
         });
-
 
         // read parameters from the intent used to launch the activity.
         boolean autoFocus = true;
@@ -137,6 +140,14 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         Snackbar.make(mGraphicOverlay, "Tap to capture. Pinch/Stretch to zoom",
                 Snackbar.LENGTH_LONG)
                 .show();
+    }
+    public boolean isDouble(String value) {
+        try {
+            Double.parseDouble(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
     /**
      * Handles the requesting of the camera permission.  This includes
@@ -228,7 +239,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                 .setRequestedPreviewSize(1280, 1024)
                 .setRequestedFps(2.0f)
                 .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
-                .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null)
+                .setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)
                 .build();
     }
 

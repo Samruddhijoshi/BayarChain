@@ -10,7 +10,7 @@
     </style>
 
     <style name="CustomShowcaseTheme3" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">#d0ffb219</item>
+        <item name="sv_backgroundColor">#deffb219</item>
         <item name="sv_showcaseColor">#e2ed850f</item>
         <item name="sv_buttonText">Got It!</item>"
         <item name="sv_tintButtonColor">true</item>

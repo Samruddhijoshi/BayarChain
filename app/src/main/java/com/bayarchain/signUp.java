@@ -81,7 +81,6 @@ public class signUp extends Activity {
 
 			}
 		});
-
 	}
 	protected void CallThread(String a,String s, String t) {
 		Thread thread = new Thread(new Runnable(){
@@ -105,7 +104,7 @@ public class signUp extends Activity {
 					httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
 					try {
 						HttpResponse response = httpClient.execute(httpPost);
-						Log.d("Response", response.getEntity().toString());
+						Log.d("Response", response.getEntity().getContent().toString());
 					} catch (ClientProtocolException e) {
 						e.printStackTrace();
 					} catch (IOException e) {

@@ -43,7 +43,8 @@ public class SessionManager {
 	public static final String KEY_PAYMENT_RECIEIVED = "payment_rec";
 	//help screen count
 	public static final String KEY_HELP_SCREEN = "help_screen";
-
+	//return from create contract screen key
+	public static final String KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT = "return_key";
 	// Constructor
 	public SessionManager(Context context){
 		this._context = context;
@@ -70,10 +71,22 @@ public class SessionManager {
 
 		editor.commit();
 	}
+
+	public String getRetrunKey(){return pref.getString(KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT, null); }
+	public void storeReturnKey(String email){
+		editor.putString(KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT, email);
+		editor.commit();
+	}
 	public int getHelpScreen(){
 		return pref.getInt(KEY_HELP_SCREEN, 0);
 	}
-
+	public String getEmail(){
+		return pref.getString(KEY_EMAIL, null);
+	}
+	public void storeEmail(String email){
+		editor.putString(KEY_EMAIL, email);
+		editor.commit();
+	}
 	public void storeMessage(String message){
 		editor.putString(KEY_PAYMENT_RECIEIVED, message);
 		Log.d("PAYMENT_NOTI_SHARED_PREF", message);

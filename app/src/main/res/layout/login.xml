@@ -27,7 +27,8 @@
         android:textColor="@color/colorAccent"
         android:backgroundTint="#ffffff"
         android:backgroundTintMode="src_atop"
-        android:lines="1" />
+        android:lines="1"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/password"
@@ -48,7 +49,8 @@
         android:layout_alignTop="@+id/username1"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorAccent"
-        android:lines="1" />
+        android:lines="1"
+        android:singleLine="true" />
 
     <ImageView
         android:layout_width="400dp"
@@ -91,8 +93,9 @@
             android:layout_alignLeft="@+id/password"
             android:layout_alignStart="@+id/password"
             android:backgroundTint="#bfffffff"
-            android:textColor="@android:color/black"
-            android:layout_weight="8" />
+            android:textColor="@color/colorAccent"
+            android:layout_weight="8"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/signUp"

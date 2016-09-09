@@ -1,6 +1,8 @@
 package com.bayarchain;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,23 +28,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import Push.GCMClientManager;
 import SessionManagement.SessionManager;
 import sprint3ad.ScrollingActivity;
-import usused.TabActivity;
-
 
 public class loginPage extends AppCompatActivity {
 
-	//private static final PROJECT_NUMBER=123;
 	EditText username, password;
 	Button loginBtn, signUpBtn;
-	String apikey = "AIzaSyCHslDzvLhkgY_k-J5C_us2T7YHhMgJabw";
 	SessionManager session;
 	String notification_registration_id;
-	/**
-	 * ATTENTION: This was auto-generated to implement the App Indexing API.
-	 * See https://g.co/AppIndexing/AndroidStudio for more information.
-	 */
 	private GoogleApiClient client;
-	String registrationID_class;
 
 	public boolean isConnected(){
 		ConnectivityManager connMgr = (ConnectivityManager) this.getSystemService(Activity.CONNECTIVITY_SERVICE);
@@ -51,10 +44,6 @@ public class loginPage extends AppCompatActivity {
 			return true;
 		else
 			return false;
-	}
-	public void sendMessage(View view) {
-		Intent intent = new Intent(this, TabActivity.class);
-		startActivity(intent);
 	}
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +71,7 @@ public class loginPage extends AppCompatActivity {
 						Log.d("Registration id", registrationId);
 						//send this registrationId to your server
 						notification_registration_id = registrationId;
+						finish();
 					}
 					@Override
 					public void onFailure(String ex) {
@@ -98,9 +88,7 @@ public class loginPage extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-
 	}
-
 
 	protected void CallThread(final String username, final String password) {
 		RequestQueue queue = Volley.newRequestQueue(this);
@@ -119,6 +107,7 @@ public class loginPage extends AppCompatActivity {
 							session.createLoginSession(username, password);
 							Intent intent = new Intent(loginPage.this, ScrollingActivity.class);
 							startActivity(intent);
+							loginPage.this.finish();
 						}
 						else if(!isConnected()){
 							Toast.makeText(getBaseContext(), "Please Check if you have an active stable internet connection", Toast.LENGTH_SHORT).show();
@@ -134,8 +123,26 @@ public class loginPage extends AppCompatActivity {
 				//mTextView.setText("That didn't work!");
 			}
 		});
-// Add the request to the RequestQueue.
+		// Add the request to the RequestQueue.
 		queue.add(stringRequest);
+	}
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to exit?")
+				.setCancelable(false)
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						loginPage.this.finish();
+					}
+				})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 	@Override
 	protected void onPause() {

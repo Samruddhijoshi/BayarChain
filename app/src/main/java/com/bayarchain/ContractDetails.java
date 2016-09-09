@@ -1,6 +1,8 @@
 package com.bayarchain;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import org.json.JSONArray;
@@ -29,7 +31,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.*;
 
-
 import java.util.HashMap;
 
 import Push.Content;
@@ -39,23 +40,22 @@ import sprint3ad.ScrollingActivity;
 
 public class ContractDetails extends AppCompatActivity {
 
-    private static final String TAG = "ContractDetails";
-    HashMap<String, String> hash;
-    SessionManager session;
-    RequestQueue queue2;
-    String str1,str2,str3,str4,str5,str6;
-    private EditText Inputamount;
-    ImageButton cash,Xfers;
-    ProgressDialog pDialog;
-    Button pay_final;
-    String  notif_id ;
-    private final String NOTIFICATION_TYPE = "PAYMENT";
-
-
-    TextView  name, eventname, date, amt, status, payment_method;
-    Button settle, settle_cash;
+    private static final String         TAG = "ContractDetails";
+    private HashMap<String, String>     hash;
+    private SessionManager              session;
+    private RequestQueue                queue2;
+    private String                      str1,str2,str3,str4,str5,str6;
+    private EditText                    Inputamount;
+    private ImageButton                 cash,Xfers;
+    private ProgressDialog              pDialog;
+    private Button                      pay_final;
+    private final String                NOTIFICATION_TYPE = "PAYMENT";
+    private TextView                    name, eventname, date, amt, status, payment_method;
+    private Button settle, settle_cash;
+    private Boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contract_display);
         Intent intent = getIntent();
@@ -83,17 +83,16 @@ public class ContractDetails extends AppCompatActivity {
         date = (TextView)findViewById((R.id.date));
         amt = (TextView)findViewById(R.id.amt);
         status = (TextView)findViewById(R.id.status);
-        settle = (Button)findViewById(R.id.settle);
         cash = (ImageButton)findViewById(R.id.imageButton2);
         Xfers = (ImageButton)findViewById(R.id.imageButton);
         Inputamount = (EditText)findViewById(R.id.inputamount);
         payment_method = (TextView)findViewById(R.id.textView19);
 
-
         name.setText(str4); // rec name
         eventname.setText(str1); //event name
         date.setText(str2);
         amt.setText(str3);
+
         if(str5.toString().trim().equals("0")) {
             status.setText("Not settled".toUpperCase());
             amt.setTextColor(Color.RED);
@@ -109,8 +108,12 @@ public class ContractDetails extends AppCompatActivity {
                 String amount= Inputamount.getText().toString().trim();
                 int amount_check = Integer.parseInt(amount);
 
-                if(amount_check <= Integer.parseInt(str3))
+                if(payment_method.getText().equals("You have chosen Xfers") && amount_check <= Integer.parseInt(str3) && flag)
                     CreateXferPayout(Inputamount.getText().toString().trim());
+                else if(payment_method.getText().equals("You have chosen Xfers") && amount_check <= Integer.parseInt(str3) && flag)
+                    CreateCashPayout(Inputamount.getText().toString().trim());
+                else if(!flag)
+                    Toast.makeText(ContractDetails.this, "Please select a payment method first!!", Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(ContractDetails.this, "Amount cannot be greater than Contract Amount", Toast.LENGTH_SHORT).show();
             }
@@ -119,16 +122,14 @@ public class ContractDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 payment_method.setText("You have chosen Xfers");
-
-
+                flag = true;
             }
         });
         cash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 payment_method.setText("You have chosen Cash");
-
-
+                flag = true;
             }
         });
 
@@ -166,7 +167,6 @@ public class ContractDetails extends AppCompatActivity {
     }
 
     private void GetNotificationID() {
-        final String[] noti_id = new String[1];
         RequestQueue queue = Volley.newRequestQueue(ContractDetails.this);
         String url = "http://23.97.60.51/bayar_mysql/get_noti_id.php?username="+ str4;
         JsonArrayRequest movieReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -193,40 +193,63 @@ public class ContractDetails extends AppCompatActivity {
         });
 
         queue.add(movieReq);
-
-
     }
 
     private void CreateCashPayout(String amount) {
         //send notification from payee to reciever, asking if he has received the money.
-        Send_Notification("Tap to confirm that you have recieved cash settlement for the Expense " + str1);
+        //Send_Notification("Tap to confirm that you have recieved cash settlement for the Expense " + str1);
         Log.d(TAG, "inside method");
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Paying...");
+        pDialog.setMessage("Paid with Cash..Please wait");
         pDialog.show();
         queue2 = Volley.newRequestQueue(getBaseContext());
         Log.d(TAG, hash.get(SessionManager.KEY_NAME));
         Log.d(TAG, hash.get(SessionManager.KEY_PASS));
 
-        String url2 = "";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url2 = "http://23.97.60.51/pri.php?" +
+                "control=pay"       +
+                "&paymode=cash"     +
+                "&genname="         + hash.get(SessionManager.KEY_NAME)              +
+                "&password="        + hash.get(SessionManager.KEY_PASS)              +
+                "&amount="          + Inputamount.getText().toString().trim()        +
+                "&genAPIKey="       + session.returnXferApiKey().toString().trim()   +
+                "&recname="         + str4                                           +
+                "&id="              + str6;
 
-        Log.d(TAG, url2);
-        StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
+        Log.d("Xfers Pay Link", url2);
+        StringRequest req = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
 
             public void onResponse(String response) {
                 Log.d(TAG, response.toString().trim());
-                pDialog.setMessage("Done");
+                GetNotificationID();
                 hidePDialog();
-                finish();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContractDetails.this);
+                builder.setMessage(response.toString().trim())
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                ContractDetails.this.finish();
+                                session.storeReturnKey("done");
+                            }
+                        });
+
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 hidePDialog();
+
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
             }
         });
-        //queue2.add(createContract);
+        req.setRetryPolicy(new DefaultRetryPolicy(80000,	0, 1.0f));
+
+        queue.add(req);
+        // Send_Notification("Hello, ");
     }
 
     private void CreateXferPayout(String amount) {
@@ -237,12 +260,15 @@ public class ContractDetails extends AppCompatActivity {
         pDialog.show();
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url2 = "http://23.97.60.51/sam1.php?" +
-                "control=pay" +
-                "&genname=" + hash.get(SessionManager.KEY_NAME) +
-                "&password=" + hash.get(SessionManager.KEY_PASS) +
-                "&amount=" +  Inputamount.getText().toString().trim()+
-                "&id="+  str6;
+        String url2 = "http://23.97.60.51/pri.php?" +
+                "control=pay"       +
+                "&paymode=xfers"    +
+                "&genname="         + hash.get(SessionManager.KEY_NAME)              +
+                "&password="        + hash.get(SessionManager.KEY_PASS)              +
+                "&amount="          + Inputamount.getText().toString().trim()        +
+                "&genAPIKey="       + session.returnXferApiKey().toString().trim()   +
+                "&recname="         + str4                                           +
+                "&id="              + str6;
 
         Log.d("Xfers Pay Link", url2);
         StringRequest req = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
@@ -250,9 +276,21 @@ public class ContractDetails extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.d(TAG, response.toString().trim());
                 GetNotificationID();
-                pDialog.setMessage("Done");
                 hidePDialog();
-                finish();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContractDetails.this);
+                builder.setMessage(response.toString().trim())
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                ContractDetails.this.finish();
+                                session.storeReturnKey("done");
+
+                            }
+                        });
+
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         }, new Response.ErrorListener() {
             @Override

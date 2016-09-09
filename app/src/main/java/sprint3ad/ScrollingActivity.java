@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -28,10 +29,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bayarchain.ContractDetails;
-import com.bayarchain.CreateContractDummy;
+import com.bayarchain.CreateContractDum2;
 import com.bayarchain.R;
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 
@@ -123,6 +123,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
                 ContractList.clear();
                 CallThread("credit");
                 listView.setAdapter(cust_adap);
+                cust_adap.notifyDataSetChanged();
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
@@ -133,7 +134,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
             }
         });
         debit.setOnClickListener(this);
-        final Intent intent = new Intent(this, CreateContractDummy.class);
+        final Intent intent = new Intent(this, CreateContractDum2.class);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +162,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         RequestQueue queue = Volley.newRequestQueue(this);
 
         String url ="";
-        url = "http://bayarchain.southeastasia.cloudapp.azure.com/sam1.php?control=myContract&genname="
+        url = "http://bayarchain.southeastasia.cloudapp.azure.com/pri.php?control=myContract&genname="
                 + map.get(SessionManager.KEY_NAME)
                 +"&password=" + map.get(SessionManager.KEY_PASS);
 
@@ -217,7 +218,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="";
-        url = "http://bayarchain.southeastasia.cloudapp.azure.com/sam1.php?control=allContract" +
+        url = "http://bayarchain.southeastasia.cloudapp.azure.com/pri.php?control=allContract" +
                 "&genname="    + map.get(SessionManager.KEY_NAME) +
                 "&password=" + map.get(SessionManager.KEY_PASS);
         Log.d("Credit link", url);
@@ -262,7 +263,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
     public void CallThread3(final String check){
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="";
-        url = "http://bayarchain.southeastasia.cloudapp.azure.com/sam1.php?control=allContract" +
+        url = "http://bayarchain.southeastasia.cloudapp.azure.com/pri.php?control=allContract" +
                 "&genname="    + map.get(SessionManager.KEY_NAME) +
                 "&password=" + map.get(SessionManager.KEY_PASS);
         Log.d("Credit link", url);
@@ -360,18 +361,14 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+
     @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("Inside On Stop", "Hello");
-        cust_adap = new CustomListAdapter2(ScrollingActivity.this , ContractList, "debit");
-        ContractList.clear();
-        CallThread3("debit");
-    }
-    //  @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Inside On Resume", "Hello");
+        String retrunkey = session.getRetrunKey();
+
+        if(retrunkey.toString().trim().equals("done")){
+        CallThread2("debit");
 
         listView.setAdapter(cust_adap);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -390,5 +387,6 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
                 startActivity(intent);
             }
         });
+    }
     }
 }

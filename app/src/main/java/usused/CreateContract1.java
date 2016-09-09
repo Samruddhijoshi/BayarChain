@@ -151,7 +151,7 @@ public class CreateContract1 extends Activity {
                 DatePicker calender = (DatePicker)book.findViewById(R.id.datePicker);
                 String date = calender.getDayOfMonth() + "-" + calender.getMonth()+ "-" + calender.getYear();
                 final_date = date;
-                calender.init(2016, 01, 01, new DatePicker.OnDateChangedListener() {
+                calender.init(calender.getYear(),calender.getMonth(), calender.getDayOfMonth(), new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                         year = i;

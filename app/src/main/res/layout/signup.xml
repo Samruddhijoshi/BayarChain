@@ -29,7 +29,8 @@
         android:layout_marginBottom="10dp"
         android:lines="1"
         android:autoText="true"
-        android:background="#c9ffffff">
+        android:background="#c9ffffff"
+        android:singleLine="true">
 
         <requestFocus />
     </EditText>
@@ -53,7 +54,8 @@
         android:typeface="monospace"
         android:alpha=".6"
         android:layout_marginBottom="10dp"
-        android:lines="1" />
+        android:lines="1"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/password"
@@ -74,7 +76,8 @@
         android:typeface="monospace"
         android:alpha=".6"
         android:layout_marginBottom="10dp"
-        android:lines="1" />
+        android:lines="1"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/emailaddress"
@@ -99,7 +102,8 @@
         android:textSize="15dp"
         android:layout_alignRight="@+id/firstName"
         android:layout_alignEnd="@+id/firstName"
-        android:lines="1" />
+        android:lines="1"
+        android:singleLine="true" />
 
     <Button
         android:id="@+id/signUpBtn"
@@ -136,7 +140,8 @@
         android:typeface="monospace"
         android:alpha=".6"
         android:layout_marginBottom="10dp"
-        android:lines="1" />
+        android:lines="1"
+        android:singleLine="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -156,7 +161,8 @@
         android:hint="Xfers Contact Number"
         android:phoneNumber="true"
         android:gravity="center_vertical|center_horizontal"
-        android:lines="1" />
+        android:lines="1"
+        android:singleLine="true" />
 
 </RelativeLayout>
 </ScrollView>
