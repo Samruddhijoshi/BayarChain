@@ -72,7 +72,7 @@ public class SessionManager {
 		editor.commit();
 	}
 
-	public String getRetrunKey(){return pref.getString(KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT, null); }
+	public String getRetrunKey(){return pref.getString(KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT, "notdone"); }
 	public void storeReturnKey(String email){
 		editor.putString(KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT, email);
 		editor.commit();

@@ -110,7 +110,7 @@ public class ContractDetails extends AppCompatActivity {
 
                 if(payment_method.getText().equals("You have chosen Xfers") && amount_check <= Integer.parseInt(str3) && flag)
                     CreateXferPayout(Inputamount.getText().toString().trim());
-                else if(payment_method.getText().equals("You have chosen Xfers") && amount_check <= Integer.parseInt(str3) && flag)
+                else if(payment_method.getText().equals("You have chosen Cash") && amount_check <= Integer.parseInt(str3) && flag)
                     CreateCashPayout(Inputamount.getText().toString().trim());
                 else if(!flag)
                     Toast.makeText(ContractDetails.this, "Please select a payment method first!!", Toast.LENGTH_SHORT).show();

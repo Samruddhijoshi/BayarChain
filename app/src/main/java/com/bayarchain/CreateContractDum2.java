@@ -70,6 +70,7 @@ public class CreateContractDum2 extends ActionBarActivity {
     public static final String NOTIFICATION_TYPE = "CONTRACT";
     String not_id, str1, str2,str_name;
     private ArrayList<ID> friend_list;
+    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -254,6 +255,8 @@ public class CreateContractDum2 extends ActionBarActivity {
     }
     public void MultipleFriendsControllr(){
 
+
+
         RequestQueue queue = Volley.newRequestQueue(CreateContractDum2.this);
         IDList.clear();
         StringRequest[] movieReq = new StringRequest[5];
@@ -264,25 +267,20 @@ public class CreateContractDum2 extends ActionBarActivity {
             String receiver_username = friend_list.get(i).getUsername().toString().trim(); //this.user2.getText().toString().trim();
             String receiver_address = friend_list.get(i).getAddress().toString().trim(); //this.user3.getText().toString().trim();
             String receiver_notification_id = friend_list.get(i).getNoti_id().toString().trim();
-            movieReq[i] = MultipleFreinds(receiver_name, receiver_notification_id, event_Name);
-
+            movieReq[i] = MultipleFreinds(receiver_name, receiver_notification_id, event_Name,  receiver_notification_id);
             queue.add(movieReq[i]);
 
         }
         String ev_name = this.expense_name.getText().toString().trim();
     }
-    public StringRequest MultipleFreinds(final String uname, String noti_id, String ename) {
+    public StringRequest MultipleFreinds(final String uname, final String noti_id, String ename, final String noti) {
 
-        pDialog = new ProgressDialog(CreateContractDum2.this);
-        // Showing progsress dialog before making http request
-        pDialog.setMessage("Adding Expense..Please Wait!!");
-        pDialog.show();
         String url2 = "http://23.97.60.51/pri.php?" +
                 "control=create"+
                 "&genname=" 	+ hash.get(SessionManager.KEY_NAME) +
                 "&password=" 	+ hash.get(SessionManager.KEY_PASS) +
                 "&recname=" 	+ uname+
-                "&amount=" 		+ String.valueOf(Integer.parseInt(amount.getText().toString())/friend_list.size())+
+                "&amount=" 		+ String.valueOf(Integer.parseInt(amount.getText().toString())/(friend_list.size()+1))+
                 "&timestamp=" 	+ final_date +
                 "&eventName="   + this.expense_name.getText().toString().trim();
 
@@ -290,16 +288,15 @@ public class CreateContractDum2 extends ActionBarActivity {
         Log.d(TAG, url2);
         if (!amount.equals(null) && !ename.equals(null) && !uname.equals(null)  && !noti_id.equals(null)) {
             StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
-
                 public void onResponse(String response) {
 
                     Log.d(TAG, response.toString().trim());
                     if(!response.equals("")){
                         received_contract_address = response.toString().trim();
-                        Send_Notification(received_contract_address);
+                        Send_Notification(received_contract_address, noti);
                         Toast.makeText(CreateContractDum2.this, "Contract Created, your friend "+ uname+ " has been notified", Toast.LENGTH_SHORT).show();
                         Log.d("Response of create contract", received_contract_address);
-                        hidePDialog();
+
                     }
                     else{
                         Toast.makeText(CreateContractDum2.this , "There was an error adding this contract, Please try again later", Toast.LENGTH_LONG).show();
@@ -317,63 +314,65 @@ public class CreateContractDum2 extends ActionBarActivity {
         return global;
     }
 
-    private void CreateContractMethod() {
-        Log.d(TAG, "inside method");
-        String amount = this.amount.getText().toString().trim();
-        if(amount!= null)
-            Log.d("Amount" , amount + amount.toString().substring(1, amount.toString().length()).trim() );
-        else
-            Toast.makeText(CreateContractDum2.this, "Enter the amount to be spilt", Toast.LENGTH_SHORT).show();
-
-        String event_Name = this.expense_name.getText().toString().trim();
-        String receiver_name = str_name;//this.user.getText().toString().trim();
-        String receiver_username = str1; //this.user2.getText().toString().trim();
-        String receiver_address = str2; //this.user3.getText().toString().trim();
-        String receiver_notification_id = this.not_id;
-        String ev_name = this.expense_name.getText().toString().trim();
-        pDialog = new ProgressDialog(CreateContractDum2.this);
-        // Showing progsress dialog before making http request
-        pDialog.setMessage("Loading...");
-        pDialog.show();
-        RequestQueue queue2 = Volley.newRequestQueue(CreateContractDum2.this);
-
-        String url2 = "http://23.97.60.51/pri.php?" +
-                "control=create"+
-                "&genname=" 	+ hash.get(SessionManager.KEY_NAME) +
-                "&password=" 	+ hash.get(SessionManager.KEY_PASS) +
-                "&recname=" 	+ friend_list.get(0).getUsername() +
-                "&amount=" 		+ "100" +
-                "&timestamp=" 	+ final_date +
-                "&eventName="   + ev_name;
-
-        Log.d(TAG, url2);
-        if (!amount.equals(null) && !event_Name.equals(null) && !receiver_name.equals(null) && !receiver_address.equals(null) && !receiver_notification_id.equals(null)) {
-            StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
-
-                public void onResponse(String response) {
-
-                    Log.d(TAG, response.toString().trim());
-                    hidePDialog();
-                    if(!response.equals("")){
-                        received_contract_address = response.toString().trim();
-                        Send_Notification(received_contract_address);
-                        Toast.makeText(CreateContractDum2.this, "Contract Created, your friend has been notified", Toast.LENGTH_SHORT).show();
-                        Log.d("Response of create contract", received_contract_address);
-                        CreateContractDum2.this.finish();}
-                    else{
-                        Toast.makeText(CreateContractDum2.this , "There was an error adding this contract, Please try again later", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
-                }
-            });
-            createContract.setRetryPolicy(new DefaultRetryPolicy(20000,	0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            queue2.add(createContract);
-        }
-    }
+//    private void CreateContractMethod() {
+//        Log.d(TAG, "inside method");
+//        String amount = this.amount.getText().toString().trim();
+//        if(amount!= null)
+//            Log.d("Amount" , amount + amount.toString().substring(1, amount.toString().length()).trim() );
+//        else
+//            Toast.makeText(CreateContractDum2.this, "Enter the amount to be spilt", Toast.LENGTH_SHORT).show();
+//
+//        String event_Name = this.expense_name.getText().toString().trim();
+//        String receiver_name = str_name;//this.user.getText().toString().trim();
+//        String receiver_username = str1; //this.user2.getText().toString().trim();
+//        String receiver_address = str2; //this.user3.getText().toString().trim();
+//        String receiver_notification_id = this.not_id;
+//        String ev_name = this.expense_name.getText().toString().trim();
+//        pDialog = new ProgressDialog(CreateContractDum2.this);
+//        // Showing progsress dialog before making http request
+//        pDialog.setMessage("Loading...");
+//        pDialog.show();
+//        pDialog.setCancelable(false);
+//        RequestQueue queue2 = Volley.newRequestQueue(CreateContractDum2.this);
+//
+//        String url2 = "http://23.97.60.51/pri.php?" +
+//                "control=create"+
+//                "&genname=" 	+ hash.get(SessionManager.KEY_NAME) +
+//                "&password=" 	+ hash.get(SessionManager.KEY_PASS) +
+//                "&recname=" 	+ friend_list.get(0).getUsername() +
+//                "&amount=" 		+ "100" +
+//                "&timestamp=" 	+ final_date +
+//                "&eventName="   + ev_name;
+//
+//        Log.d(TAG, url2);
+//        if (!amount.equals(null) && !event_Name.equals(null) && !receiver_name.equals(null) && !receiver_address.equals(null) && !receiver_notification_id.equals(null)) {
+//            StringRequest createContract = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
+//
+//                public void onResponse(String response) {
+//
+//                    Log.d(TAG, response.toString().trim());
+//                    hidePDialog();
+//                    if(!response.equals("")){
+//                        received_contract_address = response.toString().trim();
+//                        Send_Notification(received_contract_address);
+//                        Toast.makeText(CreateContractDum2.this, "Contract Created, your friend has been notified", Toast.LENGTH_SHORT).show();
+//                        Log.d("Response of create contract", received_contract_address);
+//                        CreateContractDum2.this.finish();
+//                    }
+//                    else{
+//                        Toast.makeText(CreateContractDum2.this , "There was an error adding this contract, Please try again later", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+//                }
+//            });
+//            createContract.setRetryPolicy(new DefaultRetryPolicy(20000,	0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//            queue2.add(createContract);
+//        }
+//    }
 
     private void hidePDialog() {
         if (pDialog != null) {
@@ -381,16 +380,16 @@ public class CreateContractDum2 extends ActionBarActivity {
             pDialog = null;
         }
     }
-    public void Send_Notification(String str){
+    public void Send_Notification(String str, String noti){
         String apiKey = "AIzaSyCHslDzvLhkgY_k-J5C_us2T7YHhMgJabw";
-        Content content = createContent(str);
+        Content content = createContent(str, noti);
         Log.d(TAG, "CreateContractDummy Inside method send notification");
         POST2GCM.post(apiKey, content);
     }
-    public  Content createContent(String str){
+    public  Content createContent(String str, String noti){
 
         Content c = new Content();
-        c.addRegId(not_id);
+        c.addRegId(noti);
         c.createData(NOTIFICATION_TYPE, "Contract ID: "+ str + " generated for the expense "+  expense_name.getText().toString().trim()+ " of amount "+ amount.getText().toString().trim() + " .Please Tap this balloon to confirm this contract" );
         Log.d(TAG, "App.java" + c.data);
         return c;

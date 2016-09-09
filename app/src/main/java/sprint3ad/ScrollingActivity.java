@@ -328,6 +328,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {//this is the logout button
             this.session.logoutUser();
+            this.finish();
             return true;
         }
         else if(id == R.id.action_manage){//this is manage profile activity

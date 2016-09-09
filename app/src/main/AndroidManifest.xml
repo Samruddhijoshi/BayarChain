@@ -106,10 +106,16 @@
         </activity>
         <activity android:name="sprint3ad.PaymentReceived" />
         <activity android:name="sprint3ad.Xfers"
+        android:parentActivityName="sprint3ad.ScrollingActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.bayarchain.ContractDetails" />
+    </activity>
+        <activity android:name="ocr.OcrCaptureActivity"
             android:parentActivityName="sprint3ad.ScrollingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bayarchain.ContractDetails" />
+                android:value="ocr.OcrCaptureActivity" />
         </activity>
 
 
