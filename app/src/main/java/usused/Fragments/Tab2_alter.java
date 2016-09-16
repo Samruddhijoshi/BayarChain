@@ -26,7 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.bayarchain.ContractDetails;
+import com.bayarchain.MainActivities.ContractDetails;
 import com.bayarchain.R;
 import usused.TabActivity;
 
@@ -37,9 +37,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Adapters.CustomListAdapter2;
-import Model.Contract;
-import SessionManagement.SessionManager;
+import com.bayarchain.Adapters.CustomListAdapter2;
+import com.bayarchain.Model.Contract;
+import com.bayarchain.SessionManagement.SessionManager;
 
 /**
  * Created by Adi_711 on 06-06-2016.

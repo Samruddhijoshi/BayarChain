@@ -34,38 +34,38 @@
             android:windowSoftInputMode="adjustNothing">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="sprint3ad.ScrollingActivity" />
+                android:value=".MainActivities.ScrollingActivity" />
         </activity>
         <activity
-            android:name=".CreateContractDum2"
+            android:name=".MainActivities.CreateContractDum2"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="sprint3ad.ScrollingActivity" />
+                android:value=".MainActivities.ScrollingActivity" />
         </activity>
         <activity
-            android:name=".signUp"
+            android:name=".MainActivities.SignUp"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name=".loginPage"
+            android:name=".MainActivities.LoginPage"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name=".ContractDetails"
-            android:parentActivityName="sprint3ad.ScrollingActivity"
+            android:name=".MainActivities.ContractDetails"
+            android:parentActivityName=".MainActivities.ScrollingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bayarchain.ContractDetails" />
+                android:value=".MainActivities.ContractDetails" />
         </activity>
 
         <!--
@@ -77,7 +77,7 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name=".PushNotificationService"
+            android:name=".Notification.PushNotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -90,35 +90,39 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.bayarchain" />
+
                 <action android:name="ACTION_1" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name="sprint3ad.ScrollingActivity"
+            android:name=".MainActivities.ScrollingActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="sprint3ad.PaymentReceived" />
-        <activity android:name="sprint3ad.Xfers"
-        android:parentActivityName="sprint3ad.ScrollingActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.bayarchain.ContractDetails" />
-    </activity>
-        <activity android:name="ocr.OcrCaptureActivity"
-            android:parentActivityName="sprint3ad.ScrollingActivity">
+        <activity android:name=".Notification.PaymentReceived" />
+        <activity
+            android:name=".MainActivities.Xfers"
+            android:parentActivityName=".MainActivities.ScrollingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ocr.OcrCaptureActivity" />
+                android:value=".MainActivities.ContractDetails" />
         </activity>
-
-
+        <activity
+            android:name=".OCR.OcrCaptureActivity"
+            android:parentActivityName=".MainActivities.ScrollingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OCR.OcrCaptureActivity" />
+        </activity>
+        <activity android:name=".Notification.ContractReceived"></activity>
     </application>
 
 </manifest>

@@ -36,11 +36,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Adapters.CustomListAdapter;
-import Model.ID;
-import Push.Content;
-import Push.POST2GCM;
-import SessionManagement.SessionManager;
+import com.bayarchain.Adapters.CustomListAdapter;
+import com.bayarchain.Model.ID;
+import com.bayarchain.Push.Content;
+import com.bayarchain.Push.POST2GCM;
+import com.bayarchain.SessionManagement.SessionManager;
 
 /**
  * Created by Aditya Aggarwal on 19-08-2016.

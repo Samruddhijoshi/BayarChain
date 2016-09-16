@@ -15,7 +15,7 @@ import com.bayarchain.R;
 
 import usused.Fragments.Tab1;
 import usused.Fragments.Tab2_alter;
-import SessionManagement.SessionManager;
+import com.bayarchain.SessionManagement.SessionManager;
 
 
 public class TabActivity extends AppCompatActivity implements Tab2_alter.CloseActivity {
