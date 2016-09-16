@@ -7,7 +7,6 @@ public class Contract implements Comparable<Contract>{
     String creator_username;
     String creator_password;
     String creator_address;
-
     String contract_amount;
     String contract_address;
     String contract_timestamp;
