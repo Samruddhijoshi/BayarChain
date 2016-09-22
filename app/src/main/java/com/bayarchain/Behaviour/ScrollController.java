@@ -1,4 +1,4 @@
-package com.bayarchain.MainActivities;
+package com.bayarchain.Behaviour;
 
 import android.content.Context;
 import android.os.Build;
@@ -30,6 +30,7 @@ public class ScrollController extends FloatingActionButton.Behavior {
         // Ensure we react to vertical scrolling
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL
                 || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
+
     }
 
     @Override

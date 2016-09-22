@@ -17,5 +17,5 @@
     <string name="ocr_failure">No text captured</string>
     <string name="ocr_error">"Error reading text: %1$s"</string>
     <string name="apikiey_gcm_notification">AIzaSyCHslDzvLhkgY_k-J5C_us2T7YHhMgJabw</string>
-    <string name="apiurl">http://23.97.60.51/pri.php?</string>
+    <string name="apiurl">http://23.97.60.51/pri_sam.php?</string>
 </resources>

@@ -286,7 +286,7 @@ public class CreateContractDum2 extends ActionBarActivity {
                 "&genname=" 	+ hash.get(SessionManager.KEY_NAME) +
                 "&password=" 	+ hash.get(SessionManager.KEY_PASS) +
                 "&recname=" 	+ uname+
-                "&amount=" 		+ String.valueOf(Integer.parseInt(amount.getText().toString())/(friend_list.size()+1))+
+                "&amount=" 		+ String.valueOf(Double.parseDouble(amount.getText().toString())/(friend_list.size()+1))+
                 "&timestamp=" 	+ final_date +
                 "&eventName="   + this.expense_name.getText().toString().trim();
 
@@ -332,7 +332,6 @@ public class CreateContractDum2 extends ActionBarActivity {
     private void checkAndCloseProgressDialog(int progressDialogChecker){
 
         if(progressDialogChecker == friend_list.size()){
-
             hidePDialog();
             progressDialogChecker = 0;
             CreateContractDum2.this.finish();

@@ -18,5 +18,7 @@
         app:backgroundTint="#0e00bf"
         android:layout_margin="20dp"
         android:src="@android:drawable/ic_input_add"
-        app:layout_behavior="sprint3_ad.ScrollController"/>
+        app:layout_behavior="com.bayachain.Behaviour.ScrollController"
+        app:borderWidth="0dp"
+        app:elevation="6dp" />
 </RelativeLayout>
