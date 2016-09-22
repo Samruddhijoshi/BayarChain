@@ -40,13 +40,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.bayarchain.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.bayarchain.OCR.ui.camera.CameraSource;
 import com.bayarchain.OCR.ui.camera.CameraSourcePreview;
 import com.bayarchain.OCR.ui.camera.GraphicOverlay;
-
+import com.bayarchain.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 

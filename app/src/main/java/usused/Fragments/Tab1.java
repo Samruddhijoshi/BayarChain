@@ -32,7 +32,12 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bayarchain.Adapters.CustomListAdapter;
+import com.bayarchain.Model.ID;
+import com.bayarchain.Push.Content;
+import com.bayarchain.Push.POST2GCM;
 import com.bayarchain.R;
+import com.bayarchain.SessionManagement.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,12 +45,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.bayarchain.Adapters.CustomListAdapter;
-import com.bayarchain.Model.ID;
-import com.bayarchain.Push.Content;
-import com.bayarchain.Push.POST2GCM;
-import com.bayarchain.SessionManagement.SessionManager;
 
 public class Tab1 extends Fragment{
 	private ArrayAdapter<String> adapter;

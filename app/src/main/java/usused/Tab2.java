@@ -3,10 +3,10 @@ package usused;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +29,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bayarchain.MainActivities.ContractDetails;
+import com.bayarchain.Model.Contract;
 import com.bayarchain.R;
+import com.bayarchain.SessionManagement.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +39,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.bayarchain.Model.Contract;
-import com.bayarchain.Adapters.CustomListAdapter2;
-import com.bayarchain.SessionManagement.SessionManager;
 
 
 public class Tab2 extends Fragment{

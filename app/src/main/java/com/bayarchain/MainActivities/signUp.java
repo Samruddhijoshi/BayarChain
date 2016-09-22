@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.bayarchain.Push.GCMClientManager;
+import com.bayarchain.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -25,14 +28,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bayarchain.Push.GCMClientManager;
-import com.bayarchain.R;
-
 public class SignUp extends Activity {
 
-	EditText Firstname, lastName, password, confirmPassword, username, email, contact;
-	Button loginBtn, signUpBtn;
-	String uname, pass, reg_id, fullname;
+	private EditText Firstname, lastName, password, confirmPassword, username, email, contact;
+	private Button loginBtn, signUpBtn;
+	private String uname, pass, reg_id, fullname;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);

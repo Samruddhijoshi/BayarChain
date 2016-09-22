@@ -1,7 +1,5 @@
 package com.bayarchain.SessionManagement;
 
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +8,8 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 import com.bayarchain.MainActivities.LoginPage;
+
+import java.util.HashMap;
 
 @SuppressLint("CommitPrefEdits")
 public class SessionManager {
@@ -72,21 +72,28 @@ public class SessionManager {
 		editor.commit();
 	}
 
-	public String getRetrunKey(){return pref.getString(KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT, "notdone"); }
+	public String getRetrunKey(){
+		return pref.getString(KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT, "notdone");
+	}
+
 	public void storeReturnKey(String email){
 		editor.putString(KEY_RETURN_FROM_SCREEN_CREATE_CONTRACT, email);
 		editor.commit();
 	}
+
 	public int getHelpScreen(){
 		return pref.getInt(KEY_HELP_SCREEN, 0);
 	}
+
 	public String getEmail(){
 		return pref.getString(KEY_EMAIL, null);
 	}
+
 	public void storeEmail(String email){
 		editor.putString(KEY_EMAIL, email);
 		editor.commit();
 	}
+
 	public void storeMessage(String message){
 		editor.putString(KEY_PAYMENT_RECIEIVED, message);
 		Log.d("PAYMENT_NOTI_SHARED_PREF", message);
@@ -97,9 +104,11 @@ public class SessionManager {
 		Log.d("KEY_API_XFER", message);
 		editor.commit();
 	}
+
 	public String returnXferApiKey(){
 		return pref.getString(KEY_API_XFER, null);
 	}
+
 	public String returnStoredMessage(){
 		return pref.getString(KEY_PAYMENT_RECIEIVED, null);
 	}

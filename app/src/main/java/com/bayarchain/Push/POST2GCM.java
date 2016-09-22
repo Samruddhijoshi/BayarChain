@@ -35,8 +35,6 @@ public class POST2GCM {
         conn.setRequestProperty("Authorization", "key="+apiKey);
 
         conn.setDoOutput(true);
-        
-        
 
             // 5. Add JSON data into POST request body
 

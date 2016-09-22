@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bayarchain.R;
+import com.bayarchain.SessionManagement.SessionManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -37,18 +39,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.bayarchain.R;
-import com.bayarchain.SessionManagement.SessionManager;
-
 public class Xfers extends AppCompatActivity {
 
-    EditText fullname, contact, email, apikey;
-    ProgressDialog pDialog;
+    private EditText fullname, contact, email, apikey;
+    private ProgressDialog pDialog;
     public static final String TAG = "XFERS_PAGE";
-    SessionManager session;
-    HashMap<String, String> map;
-    Button Xfer_copy, Save, Cancel;
-    ImageButton info;
+    private SessionManager session;
+    private HashMap<String, String> map;
+    private Button Xfer_copy, Save, Cancel;
+    private ImageButton info;
 
 
     @Override

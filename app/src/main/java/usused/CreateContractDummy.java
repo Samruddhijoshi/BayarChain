@@ -2,8 +2,6 @@ package usused;
 
 import android.app.Activity;
 import android.app.Dialog;
-
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +28,13 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bayarchain.Adapters.CustomListAdapter;
+import com.bayarchain.Adapters.CustomListAdapterWithDelete;
+import com.bayarchain.Model.ID;
+import com.bayarchain.Push.Content;
+import com.bayarchain.Push.POST2GCM;
 import com.bayarchain.R;
+import com.bayarchain.SessionManagement.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,13 +43,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.bayarchain.Adapters.CustomListAdapter;
-import com.bayarchain.Adapters.CustomListAdapterWithDelete;
-import com.bayarchain.Model.ID;
-import com.bayarchain.Push.Content;
-import com.bayarchain.Push.POST2GCM;
-import com.bayarchain.SessionManagement.SessionManager;
 
 /**
  * Created by Aditya Aggarwal on 21-08-2016.

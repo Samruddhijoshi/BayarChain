@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.graphics.Color;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -27,8 +27,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bayarchain.MainActivities.ContractDetails;
+import com.bayarchain.Model.Contract;
 import com.bayarchain.R;
-import usused.TabActivity;
+import com.bayarchain.SessionManagement.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,9 +38,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.bayarchain.Adapters.CustomListAdapter2;
-import com.bayarchain.Model.Contract;
-import com.bayarchain.SessionManagement.SessionManager;
+import usused.CustomListAdapter2;
+import usused.TabActivity;
 
 /**
  * Created by Adi_711 on 06-06-2016.

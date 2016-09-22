@@ -1,21 +1,20 @@
 package usused;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bayarchain.R;
+import com.bayarchain.SessionManagement.SessionManager;
 
 import usused.Fragments.Tab1;
 import usused.Fragments.Tab2_alter;
-import com.bayarchain.SessionManagement.SessionManager;
 
 
 public class TabActivity extends AppCompatActivity implements Tab2_alter.CloseActivity {

@@ -11,9 +11,8 @@ import android.util.Log;
 
 import com.bayarchain.MainActivities.ScrollingActivity;
 import com.bayarchain.R;
-import com.google.android.gms.gcm.GcmListenerService;
-
 import com.bayarchain.SessionManagement.SessionManager;
+import com.google.android.gms.gcm.GcmListenerService;
 
 public class PushNotificationService extends GcmListenerService{
 

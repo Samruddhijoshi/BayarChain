@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.bayarchain.R;
-import java.util.List;
+
 import com.bayarchain.Model.Contract;
+import com.bayarchain.R;
+
+import java.util.List;
 
 /**
  * Created by Aditya Aggarwal on 16-09-2016.

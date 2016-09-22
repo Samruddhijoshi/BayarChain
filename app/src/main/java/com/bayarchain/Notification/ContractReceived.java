@@ -1,7 +1,7 @@
 package com.bayarchain.Notification;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +15,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import java.util.HashMap;
-
 import com.bayarchain.R;
 import com.bayarchain.SessionManagement.SessionManager;
+
+import java.util.HashMap;
 
 public class ContractReceived extends AppCompatActivity {
     RequestQueue queue;

@@ -1,7 +1,5 @@
 package com.bayarchain.Adapters;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bayarchain.Model.ID;
 import com.bayarchain.R;
 
-import com.bayarchain.Model.ID;
+import java.util.List;
 
 /**
  * Created by Adi_711 on 30-05-2016.

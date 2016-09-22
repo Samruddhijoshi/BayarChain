@@ -23,18 +23,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bayarchain.R;
-import com.google.android.gms.common.api.GoogleApiClient;
-
 import com.bayarchain.Push.GCMClientManager;
+import com.bayarchain.R;
 import com.bayarchain.SessionManagement.SessionManager;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 public class LoginPage extends AppCompatActivity {
 
-	EditText username, password;
-	Button loginBtn, signUpBtn;
-	SessionManager session;
-	String notification_registration_id;
+	private EditText username, password;
+	private Button loginBtn, signUpBtn;
+	private SessionManager session;
+	private String notification_registration_id;
 	private GoogleApiClient client;
 
 	public boolean isConnected(){

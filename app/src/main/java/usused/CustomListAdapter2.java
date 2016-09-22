@@ -1,6 +1,4 @@
-package com.bayarchain.Adapters;
-
-import java.util.List;
+package usused;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,9 +9,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bayarchain.Model.Contract;
 import com.bayarchain.R;
 
-import com.bayarchain.Model.Contract;
+import java.util.List;
 
 /**
  * Created by Adi_711 on 30-05-2016.

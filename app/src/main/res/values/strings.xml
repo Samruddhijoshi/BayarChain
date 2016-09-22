@@ -1,21 +1,9 @@
 <resources>
     <string name="app_name">BayarChain</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_tab">TabActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_bcd">bcd</string>
     <string name="ok">OK</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
     <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
-    <string name="title_activity_main">Ocr Detector Sample</string>
-    <string name="ocr_header">Click &quot;Detect Text&quot; to detect text</string>
-    <string name="read_text">Detect Text</string>
-    <string name="auto_focus">Auto Focus</string>
-    <string name="use_flash">Use Flash</string>
-    <string name="ocr_success">Text read successfully</string>
-    <string name="ocr_failure">No text captured</string>
-    <string name="ocr_error">"Error reading text: %1$s"</string>
-    <string name="apikiey_gcm_notification">AIzaSyCHslDzvLhkgY_k-J5C_us2T7YHhMgJabw</string>
-    <string name="apiurl">http://23.97.60.51/pri_sam.php?</string>
+    <string name="apiurl">http://23.97.60.51/pri28.php?</string>
 </resources>

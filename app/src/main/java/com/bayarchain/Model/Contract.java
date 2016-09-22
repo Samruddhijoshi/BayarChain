@@ -4,13 +4,13 @@ package com.bayarchain.Model;
  * Created by Adi_711 on 31-05-2016.
  */
 public class Contract implements Comparable<Contract>{
-    String creator_username;
-    String creator_password;
-    String creator_address;
-    String contract_amount;
-    String contract_address;
-    String contract_timestamp;
-    String contract_principal;
+    private String creator_username;
+    private String creator_password;
+    private String creator_address;
+    private String contract_amount;
+    private String contract_address;
+    private String contract_timestamp;
+    private String contract_principal;
 
     public String getContract_event() {
         return contract_event;

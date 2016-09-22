@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,10 +29,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bayarchain.Adapters.CustomContractAdapter;
+import com.bayarchain.Model.Contract;
 import com.bayarchain.R;
+import com.bayarchain.Recyclerview.DividerItemDecoration;
+import com.bayarchain.Recyclerview.RecyclerTouchListener;
+import com.bayarchain.SessionManagement.SessionManager;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,28 +45,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.bayarchain.Adapters.CustomContractAdapter;
-import com.bayarchain.Model.Contract;
-import com.bayarchain.SessionManagement.SessionManager;
-import com.bayarchain.Recyclerview.DividerItemDecoration;
-import com.bayarchain.Recyclerview.RecyclerTouchListener;
-
 public class ScrollingActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public final String TAG = "SECTION2_DUMMY";
 
     private Button credit,debit;
     private ListView listView;
-    TextView fullname_appbar, username_appbar;
-    //CustomListAdapter2 cust_adap;
-    ArrayList<Contract> ContractList;
-    ProgressDialog pDialog;
-    final String TAG = "SECTION2_DUMMY";
-    HashMap<String, String> map;
+    private TextView fullname_appbar, username_appbar;
+    private ArrayList<Contract> ContractList;
+    private ProgressDialog pDialog;
+    private HashMap<String, String> map;
     private ArrayAdapter<String> adapter;
     private String[] products = {"Tap Credit/Debit to Refresh"};
-    ShowcaseView sv;
+    private ShowcaseView sv;
     private SessionManager session;
     private CustomContractAdapter cust_contract_adapter;
-    RecyclerView recycle;
+    private RecyclerView recycle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +95,6 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         credit = (Button)findViewById(R.id.credit);
         debit = (Button)findViewById(R.id.debit);
 
-        //listView = (ListView)findViewById(R.id.listView);
         recycle = (RecyclerView)findViewById(R.id.recycler_view);
         recycle.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recycle.setItemAnimator(new DefaultItemAnimator());
@@ -180,7 +176,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
 
         String url ="";
         url = getResources().getString(R.string.apiurl)
-                +"control=myContract&genname="
+                +"control=credit&genname="
                 + map.get(SessionManager.KEY_NAME)
                 +"&password=" + map.get(SessionManager.KEY_PASS);
 
@@ -237,7 +233,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="";
         url = getResources().getString(R.string.apiurl)+
-                "control=allContract" +
+                "control=debit" +
                 "&genname="    + map.get(SessionManager.KEY_NAME) +
                 "&password=" + map.get(SessionManager.KEY_PASS);
         Log.d("Credit link", url);
