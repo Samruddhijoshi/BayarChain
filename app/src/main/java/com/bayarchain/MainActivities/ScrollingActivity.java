@@ -119,14 +119,14 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         }
         adapter = new ArrayAdapter<String>(ScrollingActivity.this, android.R.layout.simple_list_item_1, products);
 
-        cust_contract_adapter = new CustomContractAdapter(ContractList);
+        cust_contract_adapter = new CustomContractAdapter(ContractList, "debit");
         recycle.setHasFixedSize(true);
         recycle.setLayoutManager(new LinearLayoutManager(this));
 
         credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cust_contract_adapter = new CustomContractAdapter(ContractList);
+                cust_contract_adapter = new CustomContractAdapter(ContractList , "credit");
                 ContractList.clear();
                 CallThread("credit");
                 recycle.setAdapter(cust_contract_adapter);
@@ -356,7 +356,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        cust_contract_adapter = new CustomContractAdapter(ContractList);
+        cust_contract_adapter = new CustomContractAdapter(ContractList,"debit");
         ContractList.clear();
         CallThread2("debit");
         recycle.setAdapter(cust_contract_adapter);

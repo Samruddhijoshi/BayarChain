@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bayarchain.Model.Contract;
 import com.bayarchain.R;
+import com.google.android.gms.vision.text.Text;
 
 import java.util.List;
 
@@ -17,17 +18,20 @@ import java.util.List;
  */
 public class CustomContractAdapter extends RecyclerView.Adapter<CustomContractAdapter.MyViewHolder> {
     private List<Contract> contractList;
-    TextView Created_with, event, contract_amount, amount_label, createTitle, principal_amount;
+    private String credeb;
+    TextView Created_with, event, contract_amount, amount_label, createTitle, principal_amount,arrow;
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.contract_list_display, parent, false);
+        .inflate(R.layout.contract_list_display, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
-    public CustomContractAdapter(List<Contract> contractList) {
+    public CustomContractAdapter(List<Contract> contractList, String credeb) {
         this.contractList = contractList;
+        this.credeb = credeb;
     }
     @Override
     public void onBindViewHolder(MyViewHolder convertView, int position) {
@@ -44,17 +48,17 @@ public class CustomContractAdapter extends RecyclerView.Adapter<CustomContractAd
         }
         contract_amount.setText("$ " + object.getContract_amount());
 
-//        if(tab.equals("credit")){
-//            createTitle.setText("You will get from..");
-//            contract_amount.setTextColor(Color.parseColor("#1b5e20"));
-//            amount_label.setTextColor(Color.parseColor("#4caf50"));
-//        }
-//        else if(tab.equals("debit")){
-//            createTitle.setText("You owe..");
-//
-//            contract_amount.setTextColor(Color.parseColor("#b71c1c"));
-//            amount_label.setTextColor(Color.parseColor("#e53935"));
-//        }
+        if(credeb.equals("credit")){
+            createTitle.setText("You will get from..");
+            arrow.setVisibility(View.INVISIBLE);
+            contract_amount.setTextColor(Color.parseColor("#1b5e20"));
+            amount_label.setTextColor(Color.parseColor("#4caf50"));
+        }
+        else if(credeb.equals("debit")){
+            createTitle.setText("You owe..");
+            contract_amount.setTextColor(Color.parseColor("#b71c1c"));
+            amount_label.setTextColor(Color.parseColor("#e53935"));
+        }
     }
 
     @Override
@@ -67,6 +71,7 @@ public class CustomContractAdapter extends RecyclerView.Adapter<CustomContractAd
         public MyViewHolder(View convertView) {
             super(convertView);
 
+            arrow = (TextView)convertView.findViewById(R.id.text20);
             Created_with = (TextView) convertView.findViewById(R.id.contractID);
             event= (TextView) convertView.findViewById(R.id.event_naa);
             contract_amount = (TextView) convertView.findViewById(R.id.amount);
