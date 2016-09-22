@@ -100,6 +100,7 @@ public class ContractDetails extends AppCompatActivity {
             status.setText("has been settled");
             status.setTextColor(Color.parseColor("#FF119100"));
         }
+
         pay_final.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,7 +204,7 @@ public class ContractDetails extends AppCompatActivity {
                 "&genname="         + hash.get(SessionManager.KEY_NAME)              +
                 "&password="        + hash.get(SessionManager.KEY_PASS)              +
                 "&amount="          + Inputamount.getText().toString().trim()        +
-                "&recname="         + IntentOwner                                           +
+                "&recname="         + IntentOwner                                    +
                 "&id="              + IntentContractAddress;
 
         Log.d("Xfers Pay Link", url2);
@@ -249,7 +250,7 @@ public class ContractDetails extends AppCompatActivity {
         pDialog.show();
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url2 = R.string.apiurl +
+        String url2 = getResources().getString(R.string.apiurl) +
                 "control=pay"       +
                 "&paymode=xfers"    +
                 "&genname="         + hash.get(SessionManager.KEY_NAME)              +

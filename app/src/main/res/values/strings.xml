@@ -6,4 +6,8 @@
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
     <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
     <string name="apiurl">http://23.97.60.51/pri28.php?</string>
+    <string-array name="payment">
+        <item>Cash</item>
+        <item>Xfers</item>
+    </string-array>
 </resources>
