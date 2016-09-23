@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -256,8 +257,8 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
                         contract.setContract_timestamp(obj.getString("timestamp"));
                         contract.setContract_event(obj.getString("event"));
                         contract.setContract_principal(obj.getString("total"));
-
-                        ContractList.add(contract);
+                        if(!obj.getString("status").equals("2"))
+                            ContractList.add(contract);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -275,50 +276,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         movieReq.setRetryPolicy(new DefaultRetryPolicy(80000,	0, 1.0f));
         queue.add(movieReq);
     }
-    public void CallThread3(final String check){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="";
-        url = getResources().getString(R.string.apiurl) +
-                "control=allContract" +
-                "&genname="    + map.get(SessionManager.KEY_NAME) +
-                "&password=" + map.get(SessionManager.KEY_PASS);
-        Log.d("Credit link", url);
-        ContractList.clear();
-        JsonArrayRequest movieReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
 
-            @Override
-            public void onResponse(JSONArray response) {
-                Log.d(TAG, response.toString().trim());
-                // Parsing json
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject obj = response.getJSONObject(i);
-                        Contract contract = new Contract();
-                        contract.setContract_address(obj.getString("contractID"));
-                        contract.setContract_amount(obj.getString("amount"));
-                        contract.setCreator_username(obj.getString("owner"));
-                        contract.setContract_status(obj.getString("status"));
-                        contract.setContract_timestamp(obj.getString("timestamp"));
-                        contract.setContract_event(obj.getString("event"));
-                        contract.setContract_principal(obj.getString("total"));
-
-                        ContractList.add(contract);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                cust_contract_adapter.notifyDataSetChanged();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        });
-        movieReq.setRetryPolicy(new DefaultRetryPolicy(80000,	0, 1.0f));
-        queue.add(movieReq);
-    }
     private void hidePDialog() {
         if (pDialog != null) {
             pDialog.dismiss();
@@ -363,16 +321,18 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         recycle.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recycle, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent intent = new Intent(ScrollingActivity.this, ContractDetails.class);
                 Contract con = new Contract();
                 con = ContractList.get(position);
-                intent.putExtra("TAB2_EVENTNAME", con.getContract_event());
-                intent.putExtra("TAB2_AMOUNT", con.getContract_amount());
-                intent.putExtra("TAB2_DATE", con.getContract_timestamp());
-                intent.putExtra("TAB2_OWNER", con.getCreator_username());
-                intent.putExtra("TAB2_STATUS", con.getContract_status());
-                intent.putExtra("TAB2_CONTRACT_ADD", con.getContract_address());
-                startActivity(intent);
+                    Intent intent = new Intent(ScrollingActivity.this, ContractDetails.class);
+
+                    intent.putExtra("TAB2_EVENTNAME", con.getContract_event());
+                    intent.putExtra("TAB2_AMOUNT", con.getContract_amount());
+                    intent.putExtra("TAB2_DATE", con.getContract_timestamp());
+                    intent.putExtra("TAB2_OWNER", con.getCreator_username());
+                    intent.putExtra("TAB2_STATUS", con.getContract_status());
+                    intent.putExtra("TAB2_CONTRACT_ADD", con.getContract_address());
+                    startActivity(intent);
+
             }
 
             @Override

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,12 +46,16 @@ public class ContractDetails extends AppCompatActivity {
     private RequestQueue                queue2;
     private String                      IntentEventName, IntentAmount, IntentDate, IntentOwner, IntentStatus, IntentContractAddress;
     private EditText                    Inputamount;
-    private ImageButton                 cash,Xfers;
+    public ImageButton                  ImageBtn;
     private ProgressDialog              pDialog;
     private Button                      pay_final;
     private final String                NOTIFICATION_TYPE = "PAYMENT";
     private TextView                    name, eventname, date, amt, status, payment_method;
     private Boolean flag = false;
+    private RadioGroup Payment_Method_Radio_Group;
+
+    int checked=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -81,15 +86,16 @@ public class ContractDetails extends AppCompatActivity {
         date = (TextView)findViewById((R.id.date));
         amt = (TextView)findViewById(R.id.amt);
         status = (TextView)findViewById(R.id.status);
-        cash = (ImageButton)findViewById(R.id.imageButton2);
-        Xfers = (ImageButton)findViewById(R.id.imageButton);
+        ImageBtn = (ImageButton)findViewById(R.id.imageButton);
         Inputamount = (EditText)findViewById(R.id.inputamount);
         payment_method = (TextView)findViewById(R.id.textView19);
+        Payment_Method_Radio_Group = (RadioGroup)findViewById(R.id.myRadioGroup);
 
         name.setText(IntentOwner);
         eventname.setText(IntentEventName);
         date.setText(IntentDate);
         amt.setText(IntentAmount);
+
 
         if(IntentStatus.toString().trim().equals("0")) {
             status.setText("Not settled".toUpperCase());
@@ -100,38 +106,35 @@ public class ContractDetails extends AppCompatActivity {
             status.setText("has been settled");
             status.setTextColor(Color.parseColor("#FF119100"));
         }
-
+        Payment_Method_Radio_Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i == R.id.xfers){
+                    ImageBtn.setImageDrawable(getResources().getDrawable(R.drawable.xfers_png));
+                    checked = 1;
+                }
+                else if( i == R.id.cash){
+                    ImageBtn.setImageDrawable(getResources().getDrawable(R.drawable.cash2));
+                    checked = 2;
+                }
+            }
+        });
         pay_final.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String amount= Inputamount.getText().toString().trim();
-                int amount_check = Integer.parseInt(amount);
+                double amount_check = Double.parseDouble(amount);
 
-                if(payment_method.getText().equals("You have chosen Xfers") && amount_check <= Integer.parseInt(IntentAmount) && flag)
+                if(checked == 1 && amount_check <= Double.parseDouble(IntentAmount))
                     CreateXferPayout(Inputamount.getText().toString().trim());
-                else if(payment_method.getText().equals("You have chosen Cash") && amount_check <= Integer.parseInt(IntentAmount) && flag)
+                else if(checked == 2 && amount_check <= Double.parseDouble(IntentAmount))
                     CreateCashPayout(Inputamount.getText().toString().trim());
-                else if(!flag)
+                else if(checked == 0)
                     Toast.makeText(ContractDetails.this, "Please select a payment method first!!", Toast.LENGTH_SHORT).show();
-                else
+                else if(amount_check <= Double.parseDouble(IntentAmount))
                     Toast.makeText(ContractDetails.this, "Amount cannot be greater than Contract Amount", Toast.LENGTH_SHORT).show();
             }
         });
-        Xfers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                payment_method.setText("You have chosen Xfers");
-                flag = true;
-            }
-        });
-        cash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                payment_method.setText("You have chosen Cash");
-                flag = true;
-            }
-        });
-
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
@@ -150,12 +153,19 @@ public class ContractDetails extends AppCompatActivity {
         //get notification id of other user.
         Content c = new Content();
         c.addRegId(str);
+        String hello ="";
+
+        if(checked ==2)
+            hello = "Cash";
+        else if(checked ==1)
+            hello ="Xfers";
+
         c.createData(NOTIFICATION_TYPE, IntentOwner.toUpperCase()
                 + " has settled the payment of "
                 + Inputamount.getText().toString().trim()
                 + " for " + IntentEventName.toUpperCase()
                 + " by "
-                + payment_method.getText().toString().substring(16, payment_method.getText().toString().length())
+                + hello
                 + ". Please tap on this balloon to open! " );
         return c;
     }
@@ -273,9 +283,8 @@ public class ContractDetails extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                ContractDetails.this.finish();
                                 session.storeReturnKey("done");
-
+                                ContractDetails.this.finish();
                             }
                         });
 

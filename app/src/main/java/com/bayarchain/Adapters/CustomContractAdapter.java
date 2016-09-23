@@ -46,6 +46,13 @@ public class CustomContractAdapter extends RecyclerView.Adapter<CustomContractAd
             amount_label.setText("Settled!!");
             amount_label.setTextColor(Color.parseColor("#1b5e20"));
         }
+        else if(object.getContract_status().toString().trim().equals("2")){
+            amount_label.setText("Rejected");
+            createTitle.setText("Please Create Again");
+            amount_label.setTextColor(Color.parseColor("#1b5e20"));
+            convertView.itemView.setBackgroundColor(Color.parseColor("#0FE6E6E6"));
+            arrow.setText("");
+        }
         contract_amount.setText("$ " + object.getContract_amount());
 
         if(credeb.equals("credit")){

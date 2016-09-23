@@ -46,18 +46,19 @@ public class ContractReceived extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ContractReceived.this.finish();
-                AddReceiverToContract(contract_id);
+                AddReceiverToContract(contract_id,0);
             }
         });
 
         reject.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                ContractReceived.this.finish();
+                AddReceiverToContract(contract_id,1);
             }
         });
     }
-    private void AddReceiverToContract(String contract_id) {
+    private void AddReceiverToContract(String contract_id, int acceptreject) {
         queue = Volley.newRequestQueue(this);
         SessionManager session = new SessionManager(this);
         HashMap<String, String> map = session.getUserDetails();
@@ -70,7 +71,9 @@ public class ContractReceived extends AppCompatActivity {
                     "control=notify" +
                     "&id=" + contract_id +
                     "&genname=" + map.get(SessionManager.KEY_NAME) +
-                    "&password=" + map.get(SessionManager.KEY_PASS);
+                    "&password=" + map.get(SessionManager.KEY_PASS) +
+                    "&rejectFlag=" + acceptreject
+                    ;
             Log.d("URL: " , url);
             final String TAG = "Inside receiving notification";
             StringRequest createContract = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Expense"
         android:id="@+id/textView2"
         android:gravity="center"
@@ -16,19 +16,21 @@
         android:layout_marginLeft="20dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:textColor="#000000" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Amount owed"
         android:id="@+id/textView7"
         android:gravity="center"
-        android:layout_alignBaseline="@+id/amt"
-        android:layout_alignBottom="@+id/amt"
+        android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,12 +39,11 @@
         android:text="Medium Text"
         android:id="@+id/amt"
         android:gravity="center"
-        android:layout_below="@+id/ename"
+        android:layout_above="@+id/status"
         android:layout_alignLeft="@+id/ename"
         android:layout_alignStart="@+id/ename"
-        android:layout_marginTop="40dp"
-        android:layout_alignRight="@+id/ename"
-        android:layout_alignEnd="@+id/ename" />
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,36 +65,38 @@
         android:text="Status"
         android:id="@+id/status"
         android:gravity="center"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/textView7"
-        android:layout_centerHorizontal="true"
         android:textStyle="italic"
         android:textSize="16dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_below="@+id/textView7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:typeface="monospace" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Owed To"
         android:id="@+id/textView5"
         android:gravity="center"
-        android:layout_below="@+id/status"
+        android:layout_alignTop="@+id/status"
         android:layout_alignLeft="@+id/textView7"
         android:layout_alignStart="@+id/textView7"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="30dp"
+        android:textColor="#000000" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Date"
         android:id="@+id/textView6"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_below="@+id/textView5"
         android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5" />
+        android:layout_alignStart="@+id/textView5"
+        android:textColor="#000000" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -135,68 +138,43 @@
         android:layout_above="@+id/paybuttonfinal"
         android:layout_centerHorizontal="true" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:weightSum="2"
-        android:id="@+id/linearLayout2"
-        android:layout_below="@+id/textView13"
-        android:layout_centerHorizontal="true"
-        android:layout_marginRight="100dp"
-        android:layout_marginTop="15dp">
-
-        <ImageButton
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:id="@+id/imageButton2"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="false"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="1"
-            android:background="@drawable/cash2"
-            android:layout_marginRight="10dp" />
-
-        <ImageButton
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:id="@+id/imageButton"
-            android:scaleType="fitCenter"
-            android:cropToPadding="false"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/inputamount"
-            android:layout_alignRight="@+id/date"
-            android:layout_alignEnd="@+id/date"
-            android:layout_weight="1"
-            android:background="@drawable/xfers_png"
-            android:layout_marginLeft="10dp" />
-
-    </LinearLayout>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Please select a Payment Method"
         android:id="@+id/textView13"
-        android:textColor="@android:color/black"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:textColor="@color/colorAccent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="40dp"
+        android:focusableInTouchMode="false"
+        android:typeface="monospace" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/textView19"
-        android:layout_below="@+id/linearLayout2"
         android:layout_marginTop="10dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView13" />
+
+    <ImageButton
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageButton"
+        android:scaleType="fitCenter"
+        android:cropToPadding="false"
+        android:layout_weight="1"
+        android:layout_below="@+id/myRadioGroup"
+        android:layout_centerHorizontal="true"
+        android:background="#00ffffff"
+        android:layout_above="@+id/inputamount"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -211,4 +189,55 @@
         android:layout_alignStart="@+id/inputamount"
         android:backgroundTint="@color/colorAccent"
         android:textColor="@android:color/background_light" />
+
+    <RadioGroup
+        android:orientation="horizontal"
+
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:id="@+id/myRadioGroup"
+        android:layout_weight="1"
+        android:weightSum="2"
+        android:layout_alignTop="@+id/textView19"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/xfers"
+            android:text="Xfers"
+            android:layout_alignTop="@+id/cash"
+            android:layout_toLeftOf="@+id/status"
+            android:layout_toStartOf="@+id/status"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/colorPrimary"
+            android:checked="false"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorAccent"
+            android:typeface="monospace" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/cash"
+            android:text="Cash"
+            android:layout_below="@+id/textView19"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="#bafea117"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorAccent"
+            android:checked="false"
+            android:typeface="monospace" />
+    </RadioGroup>
+
 </RelativeLayout>
