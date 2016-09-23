@@ -45,21 +45,11 @@
         android:id="@+id/linearLayout3">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Reject"
-            android:id="@+id/button4"
-            android:layout_weight="1"
-            android:backgroundTint="#73ffffff"
-            android:textColor="@color/colorAccent" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="Acknowledge!"
+            android:text="Confirm!"
             android:id="@+id/acknowldge"
             android:layout_gravity="top|center_vertical"
-            android:layout_weight="1"
             android:textColor="@android:color/primary_text_dark"
             android:backgroundTint="@color/colorAccent" />
 

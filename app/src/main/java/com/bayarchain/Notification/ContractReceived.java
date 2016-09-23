@@ -38,10 +38,10 @@ public class ContractReceived extends AppCompatActivity {
 
         SessionManager session = new SessionManager(this);
         String key = session.returnStoredMessage();
-        final String contract_id = key.substring(13, 53).trim();
+        final String contract_id = key.toString().substring(0,40); //get contract ID
 
         Log.d("HELLLLLLLLOOOOOO", key);
-        payment_rec.setText(key);
+        payment_rec.setText(key.substring(40, key.length())); //remove contract id
         acknowledge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

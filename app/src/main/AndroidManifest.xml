@@ -65,7 +65,7 @@
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.ContractDetails" />
+                android:value=".MainActivities.ScrollingActivity" />
         </activity>
 
         <!--

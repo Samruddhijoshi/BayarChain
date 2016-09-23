@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -46,7 +47,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ScrollingActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScrollingActivity extends AppCompatActivity  {
 
     public final String TAG = "SECTION2_DUMMY";
 
@@ -106,6 +107,7 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
 
 
         session.checkLogin();
+        session.storeReturnKey("notdone");
 
         map = new HashMap<String, String>();
         session = new SessionManager(this);
@@ -127,14 +129,37 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
         credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cust_contract_adapter = null;
+                recycle.setAdapter(null);
                 cust_contract_adapter = new CustomContractAdapter(ContractList , "credit");
                 ContractList.clear();
                 CallThread("credit");
                 recycle.setAdapter(cust_contract_adapter);
+
                 cust_contract_adapter.notifyDataSetChanged();
+            }
+        });
+        debit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cust_contract_adapter = new CustomContractAdapter(ContractList,"debit");
+                ContractList.clear();
+                CallThread2("debit");
+                recycle.setAdapter(cust_contract_adapter);
                 recycle.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recycle, new RecyclerTouchListener.ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
+                        Contract con = new Contract();
+                        con = ContractList.get(position);
+                        Intent intent = new Intent(ScrollingActivity.this, ContractDetails.class);
+
+                        intent.putExtra("TAB2_EVENTNAME", con.getContract_event());
+                        intent.putExtra("TAB2_AMOUNT", con.getContract_amount());
+                        intent.putExtra("TAB2_DATE", con.getContract_timestamp());
+                        intent.putExtra("TAB2_OWNER", con.getCreator_username());
+                        intent.putExtra("TAB2_STATUS", con.getContract_status());
+                        intent.putExtra("TAB2_CONTRACT_ADD", con.getContract_address());
+                        startActivity(intent);
 
                     }
 
@@ -145,7 +170,6 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
                 }));
             }
         });
-        debit.setOnClickListener(this);
 
         final Intent intent = new Intent(this, CreateContractDum2.class);
 
@@ -313,44 +337,12 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void onClick(View view) {
-        cust_contract_adapter = new CustomContractAdapter(ContractList,"debit");
-        ContractList.clear();
-        CallThread2("debit");
-        recycle.setAdapter(cust_contract_adapter);
-        recycle.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recycle, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Contract con = new Contract();
-                con = ContractList.get(position);
-                    Intent intent = new Intent(ScrollingActivity.this, ContractDetails.class);
-
-                    intent.putExtra("TAB2_EVENTNAME", con.getContract_event());
-                    intent.putExtra("TAB2_AMOUNT", con.getContract_amount());
-                    intent.putExtra("TAB2_DATE", con.getContract_timestamp());
-                    intent.putExtra("TAB2_OWNER", con.getCreator_username());
-                    intent.putExtra("TAB2_STATUS", con.getContract_status());
-                    intent.putExtra("TAB2_CONTRACT_ADD", con.getContract_address());
-                    startActivity(intent);
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-    }
-
-
-    @Override
     protected void onResume() {
         super.onResume();
         String retrunkey = session.getRetrunKey();
-
-        if(retrunkey.toString().trim().equals("done")){
-        CallThread2("debit");
-        recycle.setAdapter(cust_contract_adapter);
+        if (retrunkey.toString().trim().equals("donefrompay")) {
+            CallThread2("debit");
+            recycle.setAdapter(cust_contract_adapter);
             recycle.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recycle, new RecyclerTouchListener.ClickListener() {
                 @Override
                 public void onClick(View view, int position) {
@@ -371,6 +363,15 @@ public class ScrollingActivity extends AppCompatActivity implements View.OnClick
 
                 }
             }));
-    }
+        } else if (retrunkey.toString().trim().equals("donefromcreatecontract")) {
+            cust_contract_adapter = null;
+            recycle.setAdapter(null);
+            cust_contract_adapter = new CustomContractAdapter(ContractList , "credit");
+            ContractList.clear();
+            CallThread("credit");
+            recycle.setAdapter(cust_contract_adapter);
+
+            cust_contract_adapter.notifyDataSetChanged();
+        }
     }
 }

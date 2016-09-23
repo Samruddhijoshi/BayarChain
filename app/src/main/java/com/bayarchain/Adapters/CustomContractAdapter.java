@@ -19,7 +19,7 @@ import java.util.List;
 public class CustomContractAdapter extends RecyclerView.Adapter<CustomContractAdapter.MyViewHolder> {
     private List<Contract> contractList;
     private String credeb;
-    TextView Created_with, event, contract_amount, amount_label, createTitle, principal_amount,arrow;
+    TextView Created_with, event, contract_amount, amount_label, createTitle, principal_amount,arrow,date;
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -40,19 +40,9 @@ public class CustomContractAdapter extends RecyclerView.Adapter<CustomContractAd
         Created_with.setText(object.getCreator_username());
         event.setText("Event Name: " + object.getContract_event());
         principal_amount.setText("Principal Amount: " + object.getContract_principal() );
+        date.setText("Date: " + object.getContract_timestamp());
 
 
-        if(object.getContract_status().toString().trim().equals("1")){
-            amount_label.setText("Settled!!");
-            amount_label.setTextColor(Color.parseColor("#1b5e20"));
-        }
-        else if(object.getContract_status().toString().trim().equals("2")){
-            amount_label.setText("Rejected");
-            createTitle.setText("Please Create Again");
-            amount_label.setTextColor(Color.parseColor("#1b5e20"));
-            convertView.itemView.setBackgroundColor(Color.parseColor("#0FE6E6E6"));
-            arrow.setText("");
-        }
         contract_amount.setText("$ " + object.getContract_amount());
 
         if(credeb.equals("credit")){
@@ -65,6 +55,19 @@ public class CustomContractAdapter extends RecyclerView.Adapter<CustomContractAd
             createTitle.setText("You owe..");
             contract_amount.setTextColor(Color.parseColor("#b71c1c"));
             amount_label.setTextColor(Color.parseColor("#e53935"));
+        }
+        if(object.getContract_status().toString().trim().equals("1")){
+            amount_label.setText("Settled!!");
+            amount_label.setTextColor(Color.parseColor("#1b5e20"));
+        }
+        else if(object.getContract_status().toString().trim().equals("2")){
+            amount_label.setText("Rejected");
+            amount_label.setBackgroundColor(Color.parseColor("#FFDCDCDC"));
+            amount_label.setTextColor(Color.parseColor("#b71c1c"));
+
+            createTitle.setText("Please Create Again");
+            createTitle.setTextColor(Color.parseColor("#b71c1c"));
+            convertView.itemView.setBackgroundColor(Color.parseColor("#0FE6E6E6"));
         }
     }
 
@@ -85,6 +88,7 @@ public class CustomContractAdapter extends RecyclerView.Adapter<CustomContractAd
             amount_label = (TextView)convertView.findViewById(R.id.text17);//DONOT ToUCH OnlY FOR UI
             createTitle = (TextView)convertView.findViewById(R.id.textView15);
             principal_amount = (TextView)convertView.findViewById(R.id.principal_amt);
+            date = (TextView)convertView.findViewById(R.id.contractDate);
         }
     }
 }

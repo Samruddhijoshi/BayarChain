@@ -16,7 +16,6 @@ import com.google.android.gms.gcm.GcmListenerService;
 
 public class PushNotificationService extends GcmListenerService{
 
-    String contract_id;
     @Override
     public void onMessageReceived(String from, Bundle data) {
         NotificationCompat.Builder mBuilder, mBuilder2;
@@ -27,17 +26,17 @@ public class PushNotificationService extends GcmListenerService{
 
         String message = data.getString("message");
         String title = data.getString("title");
+        String contractID = data.getString("contractID");
         Log.d("Notification Received", title +"   "+ message);
 
         if(title.equals("CONTRACT")) {
             Intent notificationIntent = new Intent(getApplicationContext(), ScrollingActivity.class);
-            contract_id = message.substring(13, 53).trim();
-            Log.d("Trimmed Notification", contract_id);
+            Log.d("Trimmed Notification", contractID);
             PendingIntent contentIntent;
             notificationIntent = new Intent(getApplicationContext(), ContractReceived.class);
-            notificationIntent.putExtra("KEY_CONTRACT_ID", contract_id);
+            notificationIntent.putExtra("KEY_CONTRACT_ID", contractID);
 
-            session.storeMessage(message);
+            session.storeMessage(contractID + message);
 
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);

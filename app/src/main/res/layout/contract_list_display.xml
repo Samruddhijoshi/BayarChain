@@ -10,7 +10,10 @@
         android:id="@+id/textView15"
         android:textColor="#545454"
         android:gravity="left|center"
-        android:layout_alignTop="@+id/text20"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/text17"
+        android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/contractID"
         android:layout_alignStart="@+id/contractID" />
 
@@ -18,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="Contract Name"
         android:id="@+id/contractID"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -85,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
+        android:text="Contract ID"
         android:id="@+id/event_naa"
         android:layout_below="@+id/amount"
         android:layout_alignLeft="@+id/contractID"
@@ -104,5 +107,15 @@
         android:layout_alignEnd="@+id/text20"
         android:gravity="right"
         android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Contract Date"
+        android:id="@+id/contractDate"
+        android:layout_above="@+id/view2"
+        android:layout_alignLeft="@+id/event_naa"
+        android:layout_alignStart="@+id/event_naa" />
 
 </RelativeLayout>

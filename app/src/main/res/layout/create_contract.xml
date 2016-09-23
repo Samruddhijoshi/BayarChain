@@ -11,7 +11,8 @@
         android:layout_width="250dp"
         android:layout_height="140dp"
         android:layout_below="@+id/textView14"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout4">
 
         <EditText
             android:layout_width="252dp"
@@ -36,7 +37,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/editText4"
                 android:layout_below="@+id/editText3"
@@ -60,7 +61,7 @@
                 android:layout_weight="4"
                 android:textColor="@color/colorAccent"
                 android:backgroundTint="#bbffffff"
-                android:textSize="13dp" />
+                android:textSize="11dp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -140,4 +141,5 @@
         android:layout_alignLeft="@+id/textView14"
         android:layout_alignStart="@+id/textView14"
         android:textColor="@android:color/black" />
+
 </RelativeLayout>

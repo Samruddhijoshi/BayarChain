@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.bayarchain.MainActivities.ContractDetails">
+    <item
+        android:id="@+id/action_manage"
+        android:orderInCategory="100"
+        android:title="Xfers"
+        android:icon="@drawable/xfers_action_bar_logo"
+        app:showAsAction="always" />
+</menu>

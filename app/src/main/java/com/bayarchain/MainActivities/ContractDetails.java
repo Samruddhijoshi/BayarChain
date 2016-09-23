@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -124,22 +125,55 @@ public class ContractDetails extends AppCompatActivity {
             public void onClick(View view) {
                 String amount= Inputamount.getText().toString().trim();
                 double amount_check = Double.parseDouble(amount);
+                final Intent intent = new Intent(ContractDetails.this, Xfers.class);
 
-                if(checked == 1 && amount_check <= Double.parseDouble(IntentAmount))
+                if(checked == 1 && amount_check <= Double.parseDouble(IntentAmount) && !session.returnXferApiKey().toString().trim().equals("notset"))
                     CreateXferPayout(Inputamount.getText().toString().trim());
                 else if(checked == 2 && amount_check <= Double.parseDouble(IntentAmount))
                     CreateCashPayout(Inputamount.getText().toString().trim());
                 else if(checked == 0)
                     Toast.makeText(ContractDetails.this, "Please select a payment method first!!", Toast.LENGTH_SHORT).show();
+                else if(session.returnXferApiKey().toString().trim().equals("notset")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ContractDetails.this);
+                    builder.setMessage("Please enter your XFers API Token before making an Xfers Payment.")
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    startActivity(intent);
+                                }
+                            });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
                 else if(amount_check <= Double.parseDouble(IntentAmount))
                     Toast.makeText(ContractDetails.this, "Amount cannot be greater than Contract Amount", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
 
+        int id = item.getItemId();
+        session = new SessionManager(this);
+        Intent intent = new Intent(ContractDetails.this, Xfers.class);
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {//this is the logout button
+            this.session.logoutUser();
+            this.finish();
+            return true;
+        }
+        else if(id == R.id.action_manage){//this is manage profile activity
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_contract_details, menu);
+        return true;
     }
     public void Send_Notification(String str){
         String apiKey = "AIzaSyCHslDzvLhkgY_k-J5C_us2T7YHhMgJabw";
@@ -230,8 +264,8 @@ public class ContractDetails extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                ContractDetails.this.finish();
                                 session.storeReturnKey("done");
+                                ContractDetails.this.finish();
                             }
                         });
 
@@ -249,7 +283,6 @@ public class ContractDetails extends AppCompatActivity {
         req.setRetryPolicy(new DefaultRetryPolicy(80000,	0, 1.0f));
 
         queue.add(req);
-        // Send_Notification("Hello, ");
     }
 
     private void CreateXferPayout(String amount) {
@@ -283,7 +316,7 @@ public class ContractDetails extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                session.storeReturnKey("done");
+                                session.storeReturnKey("donefrompay");
                                 ContractDetails.this.finish();
                             }
                         });

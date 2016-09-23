@@ -106,7 +106,7 @@ public class SessionManager {
 	}
 
 	public String returnXferApiKey(){
-		return pref.getString(KEY_API_XFER, null);
+		return pref.getString(KEY_API_XFER, "notset");
 	}
 
 	public String returnStoredMessage(){

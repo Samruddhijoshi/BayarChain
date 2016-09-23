@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -43,6 +44,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -160,12 +162,15 @@ public class CreateContractDum2 extends ActionBarActivity {
                 book.setContentView(R.layout.date);
                 DatePicker calender = (DatePicker) book.findViewById(R.id.datePicker);
                 String date = calender.getDayOfMonth() + "-" + calender.getMonth() + "-" + calender.getYear();
+                date_selector.setText(date);
                 final_date = date;
-                calender.init(2016, 01, 01, new DatePicker.OnDateChangedListener() {
+                Calendar c = Calendar.getInstance();
+
+                calender.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                         year = i; //year
-                        month = (i1 + 1);//month
+                        month = (i1 + 1);//month+
                         day = i2;//day
                         String ddate = String.valueOf(i) + "-" + String.valueOf(i1 + 1) + "-" + String.valueOf(i2);
                         final_date = ddate;
@@ -190,9 +195,11 @@ public class CreateContractDum2 extends ActionBarActivity {
 
                 Log.d("Updated Date", date);
                 book.show();
+                final_date = date_selector.getText().toString().trim();
             }
 
         });
+
         create_contract_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -339,6 +346,7 @@ public class CreateContractDum2 extends ActionBarActivity {
             hidePDialog();
             progressDialogChecker = 0;
             CreateContractDum2.this.finish();
+            session.storeReturnKey("donefromcreatecontract");
         }
     }
 
@@ -360,8 +368,9 @@ public class CreateContractDum2 extends ActionBarActivity {
 
         Content c = new Content();
         c.addRegId(noti);
-        c.createData(NOTIFICATION_TYPE, "Contract ID: " + str + " generated for the expense " + expense_name.getText().toString().trim() + " of amount " + amount.getText().toString().trim() + " .Please Tap this balloon to confirm this contract");
+        c.createDataForContract(NOTIFICATION_TYPE, "Hello!! Expense: " + expense_name.getText().toString().trim() + " added for the amount " + amount.getText().toString().trim() + " by "+ hash.get(SessionManager.KEY_NAME) + " .Please Tap this balloon to confirm this contract", str);
         Log.d(TAG, "App.java" + c.data);
         return c;
     }
+
 }

@@ -23,4 +23,11 @@ public class Content implements Serializable {
         data.put("title", title); //title shall be the code number to distinguish the type of notification
         data.put("message", message); // message will be the content of the notification
     }
+    public void createDataForContract(String title, String message, String contractID){
+        if(data == null)
+            data = new HashMap<String,String>();
+        data.put("title", title); //title shall be the code number to distinguish the type of notification
+        data.put("message", message); // message will be the content of the notification
+        data.put("contractID", contractID);
+    }
 }

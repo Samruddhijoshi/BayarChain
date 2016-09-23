@@ -100,9 +100,9 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(!demoName.getText().toString().equals("") && isDouble(demoName.getText().toString().substring(1, demoName.getText().length()).trim())) {
+                if(!demoName.getText().toString().equals("") ) {
                     Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result", demoName.getText().toString().substring(1,demoName.getText().length()).trim());
+                    returnIntent.putExtra("result", demoName.getText().toString().replace("$", ""));
                     setResult(Activity.RESULT_OK, returnIntent);
                     OcrCaptureActivity.this.finish();
                 }
