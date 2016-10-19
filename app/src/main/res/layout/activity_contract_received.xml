@@ -60,8 +60,8 @@
             android:id="@+id/acknowldge"
             android:layout_gravity="top|center_vertical"
             android:layout_weight="1"
-            android:textColor="@android:color/primary_text_dark"
-            android:backgroundTint="@color/colorAccent" />
+            android:backgroundTint="@color/colorAccent"
+            android:elevation="0dp" />
 
     </LinearLayout>
 

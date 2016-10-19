@@ -194,7 +194,7 @@ public class ContractDetails extends AppCompatActivity {
         else if(checked ==1)
             hello ="Xfers";
 
-        c.createData(NOTIFICATION_TYPE, IntentOwner.toUpperCase()
+        c.createData(NOTIFICATION_TYPE, hash.get("name").toUpperCase()
                 + " has settled the payment of "
                 + Inputamount.getText().toString().trim()
                 + " for " + IntentEventName.toUpperCase()
@@ -264,7 +264,7 @@ public class ContractDetails extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                session.storeReturnKey("done");
+                                session.storeReturnKey("donefrompay");
                                 ContractDetails.this.finish();
                             }
                         });
@@ -308,6 +308,7 @@ public class ContractDetails extends AppCompatActivity {
 
             public void onResponse(String response) {
                 Log.d(TAG, response.toString().trim());
+                if(response.toString().trim().contains(" successful "))
                 GetNotificationID();
                 hidePDialog();
 
